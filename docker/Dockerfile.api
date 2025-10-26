@@ -1,0 +1,31 @@
+# Usar imagen base oficial de Python 3.11
+FROM python:3.11-slim
+
+# Establecer el directorio de trabajo dentro del contenedor
+WORKDIR /app
+
+# Evitar archivos .pyc y asegurar logs visibles
+ENV PYTHONDONTWRITEBYTECODE=1
+ENV PYTHONUNBUFFERED=1
+
+# Instalar dependencias del sistema necesarias
+RUN apt-get update && apt-get install -y \
+    build-essential \
+    curl \
+    && rm -rf /var/lib/apt/lists/*
+
+# Copiar requirements desde la carpeta docker
+COPY docker/requirements.txt /tmp/requirements.txt
+
+# Instalar dependencias de Python
+RUN pip install --upgrade pip && \
+    pip install -r /tmp/requirements.txt
+
+# Copiar todo el proyecto (app, data, etc.)
+COPY . /app
+
+# Exponer el puerto del backend
+EXPOSE 9000
+
+# Comando para iniciar FastAPI
+CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "9000", "--reload"]

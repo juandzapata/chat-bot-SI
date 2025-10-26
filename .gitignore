@@ -1,0 +1,183 @@
+# ============================================
+# Python
+# ============================================
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+
+# Distribution / packaging
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+pip-wheel-metadata/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# PyInstaller
+*.manifest
+*.spec
+
+# Unit test / coverage reports
+htmlcov/
+.tox/
+.nox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+*.py,cover
+.hypothesis/
+.pytest_cache/
+
+# ============================================
+# Environment Variables y Configuración
+# ============================================
+.env
+.env.local
+.env.*.local
+*.env
+.env.example
+
+# Excepción: queremos mantener el template
+!.env.example
+
+# ============================================
+# IDEs y Editores
+# ============================================
+# VSCode
+.vscode/
+*.code-workspace
+
+# PyCharm
+.idea/
+*.iml
+*.iws
+
+# Sublime Text
+*.sublime-project
+*.sublime-workspace
+
+# Vim
+*.swp
+*.swo
+*~
+
+# ============================================
+# Data y Archivos Locales
+# ============================================
+# Vector stores (ChromaDB)
+data/vector_store/
+vector_store/
+chroma_data/
+*.sqlite3
+*.db
+
+# Corpus y documentos procesados (opcional, depende de tu caso)
+# Si estos archivos son grandes o generados, descoméntalos:
+# data/corpus/
+# data/processed/
+
+# Logs
+*.log
+logs/
+log/
+
+# Archivos temporales
+tmp/
+temp/
+*.tmp
+
+# ============================================
+# Docker
+# ============================================
+# No ignorar Dockerfile ni docker-compose
+# Pero sí ignorar volúmenes y datos persistentes
+docker-volumes/
+.docker/
+
+# ============================================
+# Sistema Operativo
+# ============================================
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# Linux
+*~
+.directory
+
+# ============================================
+# Jupyter Notebooks
+# ============================================
+.ipynb_checkpoints
+*.ipynb
+
+# ============================================
+# Modelos y Archivos Grandes
+# ============================================
+# Si descargas modelos de embeddings grandes
+models/downloads/
+*.bin
+*.safetensors
+*.onnx
+*.pt
+*.pth
+
+# ============================================
+# Secrets y Credenciales
+# ============================================
+# API Keys, tokens, certificados
+secrets/
+*.pem
+*.key
+*.crt
+credentials.json
+service-account*.json
+
+# ============================================
+# Específico del Proyecto
+# ============================================
+# ChromaDB persistente
+data/vector_store/**/*.sqlite3
+data/vector_store/**/*.parquet
+
+# Archivos de caché de embeddings
+embeddings_cache/
+.embeddings_cache/
+
+# Outputs y reportes generados
+outputs/
+reports/
+
+# ============================================
+# Otros
+# ============================================
+# Backups
+*.bak
+*.backup
+*~

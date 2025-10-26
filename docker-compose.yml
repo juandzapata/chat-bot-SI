@@ -1,0 +1,38 @@
+version: "3.9"
+
+services:
+  chromadb:
+    image: ghcr.io/chroma-core/chroma:latest
+    container_name: chroma_db
+    ports:
+      - "8000:8000"
+    environment:
+      - IS_PERSISTENT=TRUE
+      - PERSIST_DIRECTORY=/data
+    volumes:
+      - ./data/vector_store:/data
+    networks:
+      - rag-network
+
+  api:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile.api
+    container_name: chatbot_api
+    ports:
+      - "9000:9000"
+    volumes:
+      - ./app:/app
+      - ./data:/data
+    environment:
+      - CHROMA_HOST=chroma_db
+      - CHROMA_PORT=8000
+      - MODE=development
+    depends_on:
+      - chromadb
+    networks:
+      - rag-network
+
+networks:
+  rag-network:
+    driver: bridge
