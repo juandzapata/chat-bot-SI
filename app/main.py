@@ -103,7 +103,7 @@ def chat(query: dict):
         
         # Configurar Gemini para generación
         genai.configure(api_key=settings.GEMINI_API_KEY)
-        model = genai.GenerativeModel('gemini-pro')
+        model = genai.GenerativeModel('gemini-2.5-flash')
         
         # Obtener colección
         collection = get_or_create_collection("documentos_ucaldas")

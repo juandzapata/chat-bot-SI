@@ -24,6 +24,8 @@ services:
     volumes:
       - ./app:/app
       - ./data:/data
+    env_file:
+      - .env
     environment:
       - CHROMA_HOST=chroma_db
       - CHROMA_PORT=8000

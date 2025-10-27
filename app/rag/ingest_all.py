@@ -17,7 +17,7 @@ logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
 # Configuración
-CORPUS_PATH = Path("data/corpus")
+CORPUS_PATH = Path("/data/corpus")  # Ruta absoluta para Docker
 METADATA_FILE = CORPUS_PATH / "corpus_metadata.json"
 COLLECTION_NAME = "documentos_ucaldas"
 
@@ -102,10 +102,17 @@ def build_file_path(metadata: Dict) -> Optional[Path]:
         nombre_archivo = f"document_{categoria}_{doc_id.split('_')[-1]}.pdf"
         file_path = CORPUS_PATH / categoria / nombre_archivo
     else:
-        # Ruta completa proporcionada
+        # Ruta completa proporcionada - puede ser data/corpus/... o ruta absoluta
         file_path = Path(ruta_archivo)
-        if not file_path.is_absolute():
-            file_path = CORPUS_PATH.parent.parent / ruta_archivo
+        
+        # Si la ruta empieza con "data/corpus", quitar ese prefijo y usar CORPUS_PATH
+        if ruta_archivo.startswith("data/corpus/"):
+            # Extraer la parte después de "data/corpus/"
+            relative_path = ruta_archivo.replace("data/corpus/", "")
+            file_path = CORPUS_PATH / relative_path
+        elif not file_path.is_absolute():
+            # Si es relativa pero no empieza con data/corpus, asumir relativa desde corpus
+            file_path = CORPUS_PATH.parent / ruta_archivo
     
     return file_path
 
@@ -159,12 +166,28 @@ def ingest_single_document(metadata: Dict, collection, loader: FileLoader) -> Di
     logger.info(f"  → Dividido en {len(chunks)} chunks")
     
     # Preparar metadatos base
-    base_metadata = {
-        **metadata,  # Todos los campos del metadata JSON
-        'filename': result['metadata'].get('filename', file_path.name),
-        'size_bytes': result['metadata'].get('size_bytes', 0),
-        'chunks_total': len(chunks)
-    }
+    # ChromaDB solo acepta tipos primitivos: str, int, float, bool, None
+    # Convertir listas y otros tipos complejos a string
+    base_metadata = {}
+    for key, value in metadata.items():
+        if isinstance(value, list):
+            # Convertir listas a string JSON
+            base_metadata[key] = json.dumps(value, ensure_ascii=False)
+        elif isinstance(value, dict):
+            # Convertir diccionarios a string JSON
+            base_metadata[key] = json.dumps(value, ensure_ascii=False)
+        elif value is None:
+            base_metadata[key] = None
+        elif isinstance(value, (str, int, float, bool)):
+            base_metadata[key] = value
+        else:
+            # Cualquier otro tipo a string
+            base_metadata[key] = str(value)
+    
+    # Agregar metadatos adicionales
+    base_metadata['filename'] = result['metadata'].get('filename', file_path.name)
+    base_metadata['size_bytes'] = result['metadata'].get('size_bytes', 0)
+    base_metadata['chunks_total'] = len(chunks)
     
     # Agregar cada chunk a ChromaDB
     ids_to_add = []
