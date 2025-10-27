@@ -6,7 +6,7 @@
       "organismo": "Parlamento Europeo / Unión Europea",
       "anio": 2024,
       "categoria": "internacional",
-      "ruta_archivo": "data/corpus/international/.pdf",
+      "ruta_archivo": "data/corpus/international/document_international_1.pdf",
       "justificacion_breve": "Es la primera ley integral de IA en el mundo[cite: 5, 6]. [cite_start]Establece normas armonizadas y clasifica los sistemas por nivel de riesgo (inaceptable, alto, limitado) para garantizar que sean seguros, transparentes y respetuosos con los derechos fundamentales[cite: 4, 18, 23, 27].",
       "fuentes_citadas": [
         "Parlamento Europeo, 2024, Ley de IA de la UE"
@@ -19,7 +19,7 @@
       "organismo": "Gobierno de Colombia (Promovido por MinCiencias y articulado con MinTIC/SIC)",
       "anio": "No especificado (Iniciativa legislativa)",
       "categoria": "colombia",
-      "ruta_archivo": "data/corpus/colombia/.pdf",
+      "ruta_archivo": "data/corpus/colombia/document_colombia_1.pdf",
       "justificacion_breve": "Iniciativa legislativa que establece un marco jurídico integral para la adopción de IA en Colombia[cite: 101]. [cite_start]Su enfoque se centra en la gestión de riesgos (cuatro niveles) y la garantía de derechos humanos[cite: 103, 109, 132].",
       "fuentes_citadas": [
         "Gobierno de Colombia, ABC Proyecto de Ley de Inteligencia Artificial"
@@ -32,7 +32,7 @@
       "organismo": "Universidad de Caldas",
       "anio": "No especificado",
       "categoria": "universidad",
-      "ruta_archivo": "data/corpus/university/.pdf",
+      "ruta_archivo": "data/corpus/university/document_university_1.png",
       "justificacion_breve": "Artículo que anuncia el nuevo programa de Inteligencia Artificial de la universidad, reflejando la adopción y formalización de la temática de IA en el contexto académico local.",
       "fuentes_citadas": [
         "Universidad de Caldas, Artículo sobre el nuevo programa de IA"
