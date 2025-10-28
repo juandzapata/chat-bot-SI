@@ -6,6 +6,7 @@ pydantic
 python-dotenv
 requests
 google-generativeai
+groq
 PyPDF2
 pdfplumber
 python-docx

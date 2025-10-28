@@ -8,6 +8,7 @@ from .chroma_manager import get_or_create_collection, add_document
 from .embeddings import embedding_function, GeminiEmbeddingFunction
 from .file_loader import FileLoader, load_file, load_directory
 from .ingest_all import ingest_all_documents
+from .models import model_manager, ModelManager
 
 __all__ = [
     'get_chroma_client',
@@ -18,5 +19,7 @@ __all__ = [
     'FileLoader',
     'load_file',
     'load_directory',
-    'ingest_all_documents'
+    'ingest_all_documents',
+    'model_manager',
+    'ModelManager'
 ]

@@ -19,6 +19,9 @@ class Settings:
 
         # Clave para modelo Gemini (si aplica)
         self.GEMINI_API_KEY = os.getenv("GEMINI_API_KEY", None)
+        
+        # Clave para modelo Groq/LLaMA3
+        self.GROQ_API_KEY = os.getenv("GROQ_API_KEY", None)
 
 # Crear instancia global de Settings
 settings = Settings()

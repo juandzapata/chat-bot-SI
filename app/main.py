@@ -1,4 +1,5 @@
 from fastapi import FastAPI, HTTPException
+from fastapi.middleware.cors import CORSMiddleware
 from config.settings import settings
 from rag.chroma_manager import add_document
 import logging
@@ -11,6 +12,15 @@ app = FastAPI(
     title="ChatBot IA - Universidad de Caldas",
     description="Backend con FastAPI + Docker + ChromaDB + Gemini",
     version="0.1.0",
+)
+
+# Configurar CORS para permitir requests del frontend
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  # En producción, especifica el dominio exacto
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
 )
 
 @app.get("/")
@@ -85,25 +95,21 @@ def chat(query: dict):
     Body esperado:
     {
         "question": "¿Cuál es la normativa sobre IA en Colombia?",
-        "top_k": 3  // opcional, número de documentos a recuperar
+        "top_k": 3,  // opcional, número de documentos a recuperar
+        "model": "gemini"  // opcional, modelo a usar: "gemini" o "llama3"
     }
     """
     try:
         question = query.get("question", "")
         top_k = query.get("top_k", 3)
+        model_id = query.get("model", "gemini")  # Default a Gemini
         
         if not question or len(question.strip()) == 0:
             raise HTTPException(status_code=400, detail="La pregunta no puede estar vacía")
         
         # Importar componentes necesarios
         from rag.chroma_manager import get_or_create_collection
-        from rag.embeddings import embedding_function
-        import google.generativeai as genai
-        from config.settings import settings
-        
-        # Configurar Gemini para generación
-        genai.configure(api_key=settings.GEMINI_API_KEY)
-        model = genai.GenerativeModel('gemini-2.5-flash')
+        from rag.models import model_manager
         
         # Obtener colección
         collection = get_or_create_collection("documentos_ucaldas")
@@ -124,8 +130,9 @@ def chat(query: dict):
         
         context = "\n\n".join(context_parts) if context_parts else "No se encontró contexto relevante."
         
-        # Generar respuesta con Gemini
-        prompt = f"""Eres un asistente académico de la Universidad de Caldas especializado en normativas de Inteligencia Artificial.
+        # Generar prompt según el modelo
+        if model_id == "gemini":
+            prompt = f"""Eres un asistente académico de la Universidad de Caldas especializado en normativas de Inteligencia Artificial.
 
 Basándote ÚNICAMENTE en el siguiente contexto de los documentos oficiales, responde la pregunta del usuario de manera precisa y académica.
 
@@ -135,10 +142,19 @@ CONTEXTO:
 PREGUNTA: {question}
 
 RESPUESTA:"""
+        else:  # LLaMA3
+            prompt = f"""Basándote ÚNICAMENTE en el siguiente contexto de los documentos oficiales, responde la pregunta del usuario de manera precisa y académica.
+
+CONTEXTO:
+{context}
+
+PREGUNTA: {question}
+
+RESPUESTA:"""
         
-        logger.info("Generando respuesta con Gemini...")
-        response = model.generate_content(prompt)
-        answer = response.text
+        # Generar respuesta con el modelo seleccionado
+        logger.info(f"Generando respuesta con {model_id}...")
+        answer = model_manager.generate_response(prompt, model_id)
         
         # Preparar metadatos de los documentos citados
         cited_docs = []
@@ -155,6 +171,7 @@ RESPUESTA:"""
             "status": "ok",
             "answer": answer,
             "question": question,
+            "model_used": model_id,
             "sources": cited_docs,
             "context_used": len(cited_docs)
         }
@@ -185,4 +202,26 @@ def get_collection_stats():
         
     except Exception as e:
         logger.error(f"Error obteniendo stats: {e}", exc_info=True)
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+# 🤖 Endpoint para listar modelos disponibles
+@app.get("/models")
+def get_available_models():
+    """Retorna lista de modelos disponibles."""
+    try:
+        from rag.models import model_manager
+        
+        models = model_manager.get_available_models()
+        default_model = model_manager.get_default_model()
+        
+        return {
+            "status": "ok",
+            "available_models": models,
+            "default_model": default_model,
+            "total_models": len(models)
+        }
+        
+    except Exception as e:
+        logger.error(f"Error obteniendo modelos: {e}", exc_info=True)
         raise HTTPException(status_code=500, detail=str(e))
