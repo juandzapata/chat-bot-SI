@@ -96,13 +96,22 @@ def chat(query: dict):
     {
         "question": "¿Cuál es la normativa sobre IA en Colombia?",
         "top_k": 3,  // opcional, número de documentos a recuperar
-        "model": "gemini"  // opcional, modelo a usar: "gemini" o "llama3"
+        "model": "gemini",  // opcional, modelo a usar: "gemini" o "llama3"
+        "mode": "extended"  // opcional, modo de respuesta: "brief" o "extended"
     }
     """
     try:
         question = query.get("question", "")
         top_k = query.get("top_k", 3)
         model_id = query.get("model", "gemini")  # Default a Gemini
+        response_mode = query.get("mode", "extended")  # Default a extendido
+        
+        # Validar modo de respuesta
+        if response_mode not in ["brief", "extended"]:
+            raise HTTPException(
+                status_code=400, 
+                detail="El modo debe ser 'brief' o 'extended'"
+            )
         
         if not question or len(question.strip()) == 0:
             raise HTTPException(status_code=400, detail="La pregunta no puede estar vacía")
@@ -130,11 +139,18 @@ def chat(query: dict):
         
         context = "\n\n".join(context_parts) if context_parts else "No se encontró contexto relevante."
         
+        # Instrucción adicional según el modo (para Gemini)
+        mode_instruction = ""
+        if response_mode == "brief":
+            mode_instruction = "\n\nIMPORTANTE: Proporciona una respuesta BREVE y CONCISA (máximo 150 palabras)."
+        else:
+            mode_instruction = "\n\nIMPORTANTE: Proporciona una respuesta DETALLADA y COMPLETA (entre 400-600 palabras)."
+        
         # Generar prompt según el modelo
         if model_id == "gemini":
             prompt = f"""Eres un asistente académico de la Universidad de Caldas especializado en normativas de Inteligencia Artificial.
 
-Basándote ÚNICAMENTE en el siguiente contexto de los documentos oficiales, responde la pregunta del usuario de manera precisa y académica.
+Basándote ÚNICAMENTE en el siguiente contexto de los documentos oficiales, responde la pregunta del usuario de manera precisa y académica.{mode_instruction}
 
 CONTEXTO:
 {context}
@@ -143,7 +159,7 @@ PREGUNTA: {question}
 
 RESPUESTA:"""
         else:  # LLaMA3
-            prompt = f"""Basándote ÚNICAMENTE en el siguiente contexto de los documentos oficiales, responde la pregunta del usuario de manera precisa y académica.
+            prompt = f"""Basándote ÚNICAMENTE en el siguiente contexto de los documentos oficiales, responde la pregunta del usuario de manera precisa y académica.{mode_instruction}
 
 CONTEXTO:
 {context}
@@ -153,8 +169,8 @@ PREGUNTA: {question}
 RESPUESTA:"""
         
         # Generar respuesta con el modelo seleccionado
-        logger.info(f"Generando respuesta con {model_id}...")
-        answer = model_manager.generate_response(prompt, model_id)
+        logger.info(f"Generando respuesta con {model_id} en modo {response_mode}...")
+        answer = model_manager.generate_response(prompt, model_id, response_mode)
         
         # Preparar metadatos de los documentos citados
         cited_docs = []
@@ -172,6 +188,7 @@ RESPUESTA:"""
             "answer": answer,
             "question": question,
             "model_used": model_id,
+            "response_mode": response_mode,
             "sources": cited_docs,
             "context_used": len(cited_docs)
         }
@@ -208,7 +225,7 @@ def get_collection_stats():
 # 🤖 Endpoint para listar modelos disponibles
 @app.get("/models")
 def get_available_models():
-    """Retorna lista de modelos disponibles."""
+    """Retorna lista de modelos disponibles y modos de respuesta."""
     try:
         from rag.models import model_manager
         
@@ -219,9 +236,49 @@ def get_available_models():
             "status": "ok",
             "available_models": models,
             "default_model": default_model,
-            "total_models": len(models)
+            "total_models": len(models),
+            "response_modes": [
+                {
+                    "id": "brief",
+                    "name": "Breve",
+                    "description": "Respuesta concisa (~200 tokens, ~150 palabras)",
+                    "max_tokens": 200
+                },
+                {
+                    "id": "extended",
+                    "name": "Extendido",
+                    "description": "Respuesta detallada (~800 tokens, ~600 palabras)",
+                    "max_tokens": 800
+                }
+            ],
+            "default_mode": "extended"
         }
         
     except Exception as e:
         logger.error(f"Error obteniendo modelos: {e}", exc_info=True)
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+# 🧪 Endpoint de prueba para Gemini sin RAG
+@app.post("/test_gemini")
+def test_gemini(query: dict):
+    """Endpoint de prueba para Gemini sin contexto RAG."""
+    try:
+        from rag.models import model_manager
+        
+        question = query.get("question", "¿Qué es la inteligencia artificial?")
+        mode = query.get("mode", "brief")
+        
+        # Prompt simple sin contexto
+        simple_prompt = f"Responde brevemente: {question}"
+        
+        answer = model_manager.generate_response(simple_prompt, "gemini", mode)
+        
+        return {
+            "status": "ok",
+            "answer": answer,
+            "mode": mode
+        }
+    except Exception as e:
+        logger.error(f"Error en test_gemini: {e}", exc_info=True)
         raise HTTPException(status_code=500, detail=str(e))

@@ -16,8 +16,14 @@ class ModelProvider:
     def __init__(self, api_key: str):
         self.api_key = api_key
     
-    def generate_response(self, prompt: str) -> str:
-        """Genera respuesta basada en el prompt."""
+    def generate_response(self, prompt: str, response_mode: str = "extended") -> str:
+        """
+        Genera respuesta basada en el prompt.
+        
+        Args:
+            prompt: El prompt para generar la respuesta
+            response_mode: 'brief' o 'extended' (usado por LLaMA3, ignorado por Gemini)
+        """
         raise NotImplementedError
 
 class GeminiProvider(ModelProvider):
@@ -34,8 +40,13 @@ class GeminiProvider(ModelProvider):
             logger.error(f"❌ Error inicializando Gemini: {e}")
             raise
     
-    def generate_response(self, prompt: str) -> str:
-        """Genera respuesta usando Gemini."""
+    def generate_response(self, prompt: str, response_mode: str = "extended") -> str:
+        """
+        Genera respuesta usando Gemini.
+        
+        NOTA: Gemini controla la longitud via instrucciones en el prompt,
+        NO usa generation_config para evitar bloqueos de safety.
+        """
         try:
             response = self.model.generate_content(prompt)
             return response.text
@@ -56,9 +67,18 @@ class GroqProvider(ModelProvider):
             logger.error(f"❌ Error inicializando Groq: {e}")
             raise
     
-    def generate_response(self, prompt: str) -> str:
-        """Genera respuesta usando LLaMA3 via Groq."""
+    def generate_response(self, prompt: str, response_mode: str = "extended") -> str:
+        """
+        Genera respuesta usando LLaMA3 via Groq.
+        
+        Args:
+            prompt: El prompt para generar la respuesta
+            response_mode: 'brief' (200 tokens) o 'extended' (800 tokens)
+        """
         try:
+            # Configurar tokens según el modo
+            max_tokens = 200 if response_mode == "brief" else 800
+            
             response = self.client.chat.completions.create(
                 model="llama-3.1-8b-instant",
                 messages=[
@@ -72,7 +92,7 @@ class GroqProvider(ModelProvider):
                     }
                 ],
                 temperature=0.1,
-                max_tokens=1000
+                max_tokens=max_tokens
             )
             return response.choices[0].message.content
         except Exception as e:
@@ -132,14 +152,21 @@ class ModelManager:
         
         return models
     
-    def generate_response(self, prompt: str, model_id: str = "gemini") -> str:
-        """Genera respuesta usando el modelo especificado."""
+    def generate_response(self, prompt: str, model_id: str = "gemini", response_mode: str = "extended") -> str:
+        """
+        Genera respuesta usando el modelo especificado.
+        
+        Args:
+            prompt: El prompt para generar la respuesta
+            model_id: ID del modelo a usar ('gemini', 'llama3')
+            response_mode: 'brief' o 'extended'
+        """
         if model_id not in self.providers:
             available = list(self.providers.keys())
             raise ValueError(f"Modelo '{model_id}' no disponible. Disponibles: {available}")
         
         provider = self.providers[model_id]
-        return provider.generate_response(prompt)
+        return provider.generate_response(prompt, response_mode)
     
     def get_default_model(self) -> str:
         """Retorna el modelo por defecto."""
