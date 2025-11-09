@@ -259,6 +259,71 @@ def get_available_models():
         raise HTTPException(status_code=500, detail=str(e))
 
 
+# 📚 Endpoint para obtener todas las fuentes disponibles
+@app.get("/sources")
+def get_sources():
+    """
+    Retorna todas las fuentes documentales disponibles en la base de datos,
+    agrupadas por categoría y deduplicadas por título.
+    """
+    try:
+        from rag.chroma_manager import get_all_sources
+        from collections import defaultdict
+        
+        # Obtener todas las fuentes
+        all_sources = get_all_sources()
+        
+        # Agrupar por categoría y deduplicar por título
+        sources_by_category = defaultdict(dict)  # Cambio: dict en lugar de list
+        for source in all_sources:
+            category = source.get("category", "sin_categoria")
+            title = source["title"]
+            
+            # Solo agregar si no existe (deduplicación por título)
+            if title not in sources_by_category[category]:
+                sources_by_category[category][title] = {
+                    "title": title,
+                    "source": source["source"],
+                    "year": source["year"]
+                }
+        
+        # Convertir a formato de respuesta
+        categories = []
+        category_names = {
+            "colombia": "Colombia",
+            "internacional": "Internacional",
+            "universidad": "Universidad de Caldas",
+            "sin_categoria": "Sin Categoría"
+        }
+        
+        total_unique_sources = 0
+        for category, sources_dict in sources_by_category.items():
+            sources_list = list(sources_dict.values())
+            total_unique_sources += len(sources_list)
+            
+            categories.append({
+                "category": category,
+                "category_name": category_names.get(category, category.capitalize()),
+                "sources": sources_list,
+                "count": len(sources_list)
+            })
+        
+        # Ordenar categorías (colombia, internacional, universidad, otros)
+        category_order = ["colombia", "internacional", "universidad"]
+        categories.sort(key=lambda x: category_order.index(x["category"]) if x["category"] in category_order else 999)
+        
+        return {
+            "status": "ok",
+            "total_sources": total_unique_sources,  # Ahora muestra documentos únicos
+            "total_categories": len(categories),
+            "categories": categories
+        }
+        
+    except Exception as e:
+        logger.error(f"Error obteniendo fuentes: {e}", exc_info=True)
+        raise HTTPException(status_code=500, detail=str(e))
+
+
 # 🧪 Endpoint de prueba para Gemini sin RAG
 @app.post("/test_gemini")
 def test_gemini(query: dict):

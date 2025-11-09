@@ -24,3 +24,30 @@ def add_document(collection_name: str, document_id: str, text: str, metadata=Non
         # No pasamos embedding manualmente porque Chroma usará embedding_function automáticamente
     )
     return f"Documento {document_id} agregado correctamente a la colección '{collection_name}'."
+
+def get_all_sources(collection_name="documentos_ucaldas"):
+    """
+    Obtiene todos los documentos de la colección y extrae sus metadatos.
+    Retorna una lista de diccionarios con la información de cada fuente.
+    """
+    collection = get_or_create_collection(collection_name)
+    
+    # Obtener todos los documentos (sin límite)
+    results = collection.get(
+        include=["metadatas"]  # Solo necesitamos los metadatos
+    )
+    
+    sources = []
+    if results and results.get("metadatas"):
+        for metadata in results["metadatas"]:
+            # Extraer campos relevantes
+            source_info = {
+                "title": metadata.get("titulo", "Sin título"),
+                "source": metadata.get("organismo", "Sin fuente"),
+                "category": metadata.get("categoria", "sin_categoria"),
+                "year": metadata.get("anio", "N/A"),
+                "file_path": metadata.get("ruta_archivo", "")
+            }
+            sources.append(source_info)
+    
+    return sources

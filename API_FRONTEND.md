@@ -97,7 +97,122 @@ GET /collection_stats
 
 ---
 
-### 4. Ingesta de Documentos (Admin)
+### 4. Modelos Disponibles
+**Obtener lista de modelos de IA disponibles y modos de respuesta**
+
+```http
+GET /models
+```
+
+**Response:**
+```json
+{
+  "status": "ok",
+  "available_models": [
+    {
+      "id": "gemini",
+      "name": "Gemini 2.5 Flash",
+      "provider": "Google",
+      "description": "Modelo de Google para generación de texto"
+    },
+    {
+      "id": "llama3",
+      "name": "LLaMA 3 8B",
+      "provider": "Groq",
+      "description": "Modelo open source de Meta via Groq"
+    }
+  ],
+  "default_model": "gemini",
+  "total_models": 2,
+  "response_modes": [
+    {
+      "id": "brief",
+      "name": "Breve",
+      "description": "Respuesta concisa (~200 tokens, ~150 palabras)",
+      "max_tokens": 200
+    },
+    {
+      "id": "extended",
+      "name": "Extendido",
+      "description": "Respuesta detallada (~800 tokens, ~600 palabras)",
+      "max_tokens": 800
+    }
+  ],
+  "default_mode": "extended"
+}
+```
+
+📖 **Documentación completa:** Ver `RESPONSE_MODES_UPDATE.md`
+
+---
+
+### 5. Fuentes Disponibles
+**Obtener lista de todas las fuentes documentales únicas agrupadas por categoría**
+
+```http
+GET /sources
+```
+
+**Response:**
+```json
+{
+  "status": "ok",
+  "total_sources": 3,
+  "total_categories": 3,
+  "categories": [
+    {
+      "category": "colombia",
+      "category_name": "Colombia",
+      "count": 1,
+      "sources": [
+        {
+          "title": "ABC Proyecto de Ley de Inteligencia Artificial (Colombia)",
+          "source": "Gobierno de Colombia (Promovido por MinCiencias...)",
+          "year": "No especificado (Iniciativa legislativa)"
+        }
+      ]
+    },
+    {
+      "category": "internacional",
+      "category_name": "Internacional",
+      "count": 1,
+      "sources": [
+        {
+          "title": "Ley de IA de la UE: primera normativa sobre inteligencia artificial",
+          "source": "Parlamento Europeo / Unión Europea",
+          "year": 2024
+        }
+      ]
+    },
+    {
+      "category": "universidad",
+      "category_name": "Universidad de Caldas",
+      "count": 1,
+      "sources": [
+        {
+          "title": "Formación para el futuro: Universidad de Caldas presentó el nuevo programa de IA",
+          "source": "Universidad de Caldas",
+          "year": "N/A"
+        }
+      ]
+    }
+  ]
+}
+```
+
+**Casos de uso:**
+- Mostrar fuentes en página "Acerca de"
+- Filtrar búsquedas por categoría
+- Generar página de referencias bibliográficas
+- Validar cobertura documental
+
+**Importante:** Este endpoint retorna documentos únicos (deduplicados automáticamente). Internamente ChromaDB almacena múltiples "chunks" (fragmentos) de cada PDF, pero este endpoint los agrupa mostrando cada documento solo una vez.
+
+📖 **Documentación completa:** Ver `SOURCES_ENDPOINT.md`
+
+---
+
+### 6. Ingesta de Documentos (Admin)
 **Importar documentos al sistema**
 
 ```http
@@ -127,7 +242,7 @@ POST /ingest_all
 
 ---
 
-### 5. Prueba de Ingesta
+### 7. Prueba de Ingesta
 **Insertar documento de prueba**
 
 ```http
