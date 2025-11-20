@@ -1,0 +1,498 @@
+{
+  "metadata": {
+    "version": "1.0",
+    "created_at": "2025-11-19",
+    "total_questions": 60,
+    "categories": [
+      "aplicaciones_salud",
+      "aplicaciones_generales",
+      "etica_regulaciones",
+      "deep_learning_llms",
+      "investigacion_cientifica",
+      "colombia_universidad"
+    ],
+    "description": "Dataset de 60 preguntas gold para evaluación del chatbot de IA de la Universidad de Caldas"
+  },
+  "questions": [
+    {
+      "id": 1,
+      "category": "aplicaciones_salud",
+      "question": "¿Cómo se utiliza la inteligencia artificial en el diagnóstico de salud mental?",
+      "difficulty": "medium",
+      "expected_keywords": ["salud mental", "diagnóstico", "aplicación", "machine learning"],
+      "source_documents": ["document_international_16.pdf"]
+    },
+    {
+      "id": 2,
+      "category": "aplicaciones_salud",
+      "question": "¿Qué ventajas ofrece la IA en medicina personalizada?",
+      "difficulty": "medium",
+      "expected_keywords": ["medicina personalizada", "diagnóstico", "tratamiento", "paciente"],
+      "source_documents": ["document_international_28.pdf"]
+    },
+    {
+      "id": 3,
+      "category": "aplicaciones_salud",
+      "question": "¿Cómo puede la inteligencia artificial ayudar en la clasificación de fracturas óseas mediante radiografías?",
+      "difficulty": "medium",
+      "expected_keywords": ["fracturas", "radiografías", "clasificación", "diagnóstico médico"],
+      "source_documents": ["document_international_17.pdf"]
+    },
+    {
+      "id": 4,
+      "category": "aplicaciones_salud",
+      "question": "¿Qué papel juega la IA en el diagnóstico conversacional?",
+      "difficulty": "hard",
+      "expected_keywords": ["diagnóstico", "conversacional", "chatbot médico", "interacción"],
+      "source_documents": ["document_international_22.pdf"]
+    },
+    {
+      "id": 5,
+      "category": "aplicaciones_salud",
+      "question": "¿Cómo se aplican las redes neuronales CNN para clasificar crisis epilépticas?",
+      "difficulty": "hard",
+      "expected_keywords": ["CNN", "epilepsia", "clasificación", "redes neuronales"],
+      "source_documents": ["document_university_5.pdf"]
+    },
+    {
+      "id": 6,
+      "category": "aplicaciones_salud",
+      "question": "¿Qué beneficios tiene la IA en la detección temprana de enfermedades?",
+      "difficulty": "easy",
+      "expected_keywords": ["detección temprana", "diagnóstico", "prevención", "medicina"],
+      "source_documents": ["document_international_28.pdf", "document_international_16.pdf"]
+    },
+    {
+      "id": 7,
+      "category": "aplicaciones_salud",
+      "question": "¿Cuáles son los desafíos de implementar IA en sistemas de salud?",
+      "difficulty": "medium",
+      "expected_keywords": ["desafíos", "implementación", "salud", "ética", "privacidad"],
+      "source_documents": ["document_international_16.pdf"]
+    },
+    {
+      "id": 8,
+      "category": "aplicaciones_salud",
+      "question": "¿Cómo puede la IA mejorar la precisión en el diagnóstico médico comparado con métodos tradicionales?",
+      "difficulty": "medium",
+      "expected_keywords": ["precisión", "diagnóstico", "comparación", "tradicional"],
+      "source_documents": ["document_international_17.pdf", "document_international_22.pdf"]
+    },
+    {
+      "id": 9,
+      "category": "aplicaciones_salud",
+      "question": "¿Qué tecnologías de IA se utilizan en el análisis de imágenes médicas?",
+      "difficulty": "medium",
+      "expected_keywords": ["imágenes médicas", "visión artificial", "CNN", "análisis"],
+      "source_documents": ["document_international_17.pdf"]
+    },
+    {
+      "id": 10,
+      "category": "aplicaciones_salud",
+      "question": "¿Cómo contribuye la IA al tratamiento personalizado de pacientes?",
+      "difficulty": "easy",
+      "expected_keywords": ["tratamiento personalizado", "paciente", "medicina de precisión"],
+      "source_documents": ["document_international_28.pdf"]
+    },
+    {
+      "id": 11,
+      "category": "aplicaciones_generales",
+      "question": "¿Qué aplicaciones tiene la inteligencia artificial en la agricultura?",
+      "difficulty": "medium",
+      "expected_keywords": ["agricultura", "suelo", "microbioma", "análisis"],
+      "source_documents": ["document_international_27.pdf"]
+    },
+    {
+      "id": 12,
+      "category": "aplicaciones_generales",
+      "question": "¿Cómo se utiliza la IA en el mantenimiento predictivo de vehículos?",
+      "difficulty": "medium",
+      "expected_keywords": ["mantenimiento predictivo", "vehículos", "predicción", "fallos"],
+      "source_documents": ["document_international_29.pdf"]
+    },
+    {
+      "id": 13,
+      "category": "aplicaciones_generales",
+      "question": "¿Qué rol tiene la IA generativa en sistemas de transporte inteligente?",
+      "difficulty": "hard",
+      "expected_keywords": ["transporte inteligente", "IA generativa", "movilidad"],
+      "source_documents": ["document_international_30.pdf"]
+    },
+    {
+      "id": 14,
+      "category": "aplicaciones_generales",
+      "question": "¿Cómo contribuye la IA a la acción climática y el desarrollo sostenible?",
+      "difficulty": "medium",
+      "expected_keywords": ["cambio climático", "sostenibilidad", "desarrollo sostenible"],
+      "source_documents": ["document_international_21.pdf", "document_international_26.pdf"]
+    },
+    {
+      "id": 15,
+      "category": "aplicaciones_generales",
+      "question": "¿Qué aplicaciones tiene la IA en robótica colaborativa con sistemas pick and place?",
+      "difficulty": "hard",
+      "expected_keywords": ["robótica", "visión artificial", "pick and place", "colaborativa"],
+      "source_documents": ["document_international_12.pdf"]
+    },
+    {
+      "id": 16,
+      "category": "aplicaciones_generales",
+      "question": "¿Cómo se aplica la inteligencia artificial en finanzas empresariales?",
+      "difficulty": "medium",
+      "expected_keywords": ["finanzas", "emprendimiento", "predicción", "análisis financiero"],
+      "source_documents": ["document_international_19.pdf"]
+    },
+    {
+      "id": 17,
+      "category": "aplicaciones_generales",
+      "question": "¿Qué papel juega la IA en mejorar la accesibilidad web?",
+      "difficulty": "medium",
+      "expected_keywords": ["accesibilidad", "web", "inclusión", "diseño"],
+      "source_documents": ["document_international_6.pdf"]
+    },
+    {
+      "id": 18,
+      "category": "aplicaciones_generales",
+      "question": "¿Cómo se integran sensores flexibles con machine learning y sinapsis artificiales?",
+      "difficulty": "hard",
+      "expected_keywords": ["sensores", "flexibles", "machine learning", "sinapsis"],
+      "source_documents": ["document_international_18.pdf"]
+    },
+    {
+      "id": 19,
+      "category": "aplicaciones_generales",
+      "question": "¿Qué desafíos enfrenta la IA en el análisis del microbioma del suelo?",
+      "difficulty": "hard",
+      "expected_keywords": ["microbioma", "suelo", "agricultura", "análisis"],
+      "source_documents": ["document_international_27.pdf"]
+    },
+    {
+      "id": 20,
+      "category": "aplicaciones_generales",
+      "question": "¿Cómo puede la IA mejorar la eficiencia energética en vehículos?",
+      "difficulty": "medium",
+      "expected_keywords": ["eficiencia", "vehículos", "energía", "optimización"],
+      "source_documents": ["document_international_29.pdf"]
+    },
+    {
+      "id": 21,
+      "category": "etica_regulaciones",
+      "question": "¿Qué normativas de inteligencia artificial existen en Colombia?",
+      "difficulty": "easy",
+      "expected_keywords": ["Colombia", "normativa", "ley", "regulación", "MinCiencias"],
+      "source_documents": ["document_colombia_1.pdf", "document_colombia_3.pdf"]
+    },
+    {
+      "id": 22,
+      "category": "etica_regulaciones",
+      "question": "¿Cuál es el objetivo principal de la Ley de IA de la Unión Europea?",
+      "difficulty": "easy",
+      "expected_keywords": ["Unión Europea", "regulación", "ley de IA", "riesgos"],
+      "source_documents": ["document_international_1.pdf"]
+    },
+    {
+      "id": 23,
+      "category": "etica_regulaciones",
+      "question": "¿Qué aspectos éticos se deben considerar al implementar IA en negocios?",
+      "difficulty": "medium",
+      "expected_keywords": ["ética", "negocios", "responsabilidad", "transparencia"],
+      "source_documents": ["document_international_31.pdf"]
+    },
+    {
+      "id": 24,
+      "category": "etica_regulaciones",
+      "question": "¿Qué es el enfoque de gestión de riesgos en el proyecto de ley de IA de Colombia?",
+      "difficulty": "medium",
+      "expected_keywords": ["gestión de riesgos", "Colombia", "ley", "protección"],
+      "source_documents": ["document_colombia_1.pdf"]
+    },
+    {
+      "id": 25,
+      "category": "etica_regulaciones",
+      "question": "¿Cómo puede la delegación de tareas a IA aumentar el comportamiento deshonesto?",
+      "difficulty": "hard",
+      "expected_keywords": ["delegación", "deshonestidad", "comportamiento", "ética"],
+      "source_documents": ["document_international_23.pdf"]
+    },
+    {
+      "id": 26,
+      "category": "etica_regulaciones",
+      "question": "¿Cuáles son los principios éticos fundamentales de la IA según IEEE?",
+      "difficulty": "medium",
+      "expected_keywords": ["IEEE", "ética", "principios", "responsabilidad"],
+      "source_documents": ["document_international_4.pdf"]
+    },
+    {
+      "id": 27,
+      "category": "etica_regulaciones",
+      "question": "¿Qué herramientas existen para evaluar sistemas de IA éticamente?",
+      "difficulty": "hard",
+      "expected_keywords": ["herramientas", "evaluación", "ética", "sistemas"],
+      "source_documents": ["document_university_4.pdf"]
+    },
+    {
+      "id": 28,
+      "category": "etica_regulaciones",
+      "question": "¿Qué derechos humanos protege el proyecto de ley de IA en Colombia?",
+      "difficulty": "medium",
+      "expected_keywords": ["derechos humanos", "Colombia", "protección", "privacidad"],
+      "source_documents": ["document_colombia_1.pdf"]
+    },
+    {
+      "id": 29,
+      "category": "etica_regulaciones",
+      "question": "¿Cuáles son los mejores prácticas para adoptar IA de forma ética en organizaciones?",
+      "difficulty": "medium",
+      "expected_keywords": ["mejores prácticas", "ética", "adopción", "organización"],
+      "source_documents": ["document_international_31.pdf"]
+    },
+    {
+      "id": 30,
+      "category": "etica_regulaciones",
+      "question": "¿Qué aspectos regula el decreto oficial de IA publicado en el Diario Oficial de Colombia?",
+      "difficulty": "medium",
+      "expected_keywords": ["decreto", "Colombia", "regulación", "implementación"],
+      "source_documents": ["document_colombia_3.pdf"]
+    },
+    {
+      "id": 31,
+      "category": "deep_learning_llms",
+      "question": "¿Qué son los agentes autónomos basados en large language models?",
+      "difficulty": "medium",
+      "expected_keywords": ["agentes autónomos", "LLM", "large language models"],
+      "source_documents": ["document_international_15.pdf"]
+    },
+    {
+      "id": 32,
+      "category": "deep_learning_llms",
+      "question": "¿Cómo se evalúan las arquitecturas de agentes basados en foundation models?",
+      "difficulty": "hard",
+      "expected_keywords": ["evaluación", "arquitectura", "foundation models", "agentes"],
+      "source_documents": ["document_international_3.pdf"]
+    },
+    {
+      "id": 33,
+      "category": "deep_learning_llms",
+      "question": "¿Qué ventajas tienen los transformers sobre las redes CNN tradicionales?",
+      "difficulty": "medium",
+      "expected_keywords": ["transformers", "CNN", "ventajas", "comparación"],
+      "source_documents": ["document_university_5.pdf"]
+    },
+    {
+      "id": 34,
+      "category": "deep_learning_llms",
+      "question": "¿Cómo funcionan las capsule networks en comparación con CNN?",
+      "difficulty": "hard",
+      "expected_keywords": ["capsule networks", "CNN", "arquitectura", "comparación"],
+      "source_documents": ["document_university_5.pdf"]
+    },
+    {
+      "id": 35,
+      "category": "deep_learning_llms",
+      "question": "¿Qué métodos se utilizan para identificar contenido generado por IA?",
+      "difficulty": "medium",
+      "expected_keywords": ["detección", "contenido generado", "IA", "identificación"],
+      "source_documents": ["document_international_24.pdf"]
+    },
+    {
+      "id": 36,
+      "category": "deep_learning_llms",
+      "question": "¿Cómo se integra la visualización con IA para análisis de datos eficiente?",
+      "difficulty": "hard",
+      "expected_keywords": ["visualización", "análisis de datos", "integración", "eficiencia"],
+      "source_documents": ["document_international_14.pdf"]
+    },
+    {
+      "id": 37,
+      "category": "deep_learning_llms",
+      "question": "¿Qué es un encoder de transformers y cómo se usa en clasificación?",
+      "difficulty": "hard",
+      "expected_keywords": ["encoder", "transformer", "clasificación", "arquitectura"],
+      "source_documents": ["document_university_5.pdf"]
+    },
+    {
+      "id": 38,
+      "category": "deep_learning_llms",
+      "question": "¿Cuáles son las capacidades principales de los large language models?",
+      "difficulty": "easy",
+      "expected_keywords": ["LLM", "capacidades", "lenguaje natural", "procesamiento"],
+      "source_documents": ["document_international_15.pdf"]
+    },
+    {
+      "id": 39,
+      "category": "deep_learning_llms",
+      "question": "¿Qué desafíos existen en el desarrollo de foundation models?",
+      "difficulty": "medium",
+      "expected_keywords": ["foundation models", "desafíos", "desarrollo", "limitaciones"],
+      "source_documents": ["document_international_3.pdf"]
+    },
+    {
+      "id": 40,
+      "category": "deep_learning_llms",
+      "question": "¿Cómo se comparan las redes neuronales profundas con algoritmos de machine learning tradicionales?",
+      "difficulty": "medium",
+      "expected_keywords": ["deep learning", "machine learning", "comparación", "algoritmos"],
+      "source_documents": ["document_university_5.pdf"]
+    },
+    {
+      "id": 41,
+      "category": "investigacion_cientifica",
+      "question": "¿Qué es la teoría de información integrada en el contexto de IA?",
+      "difficulty": "hard",
+      "expected_keywords": ["teoría de información integrada", "consciencia", "IA", "sistemas cognitivos"],
+      "source_documents": ["document_university_2.pdf"]
+    },
+    {
+      "id": 42,
+      "category": "investigacion_cientifica",
+      "question": "¿Cómo se puede medir la consciencia en sistemas cognitivos artificiales?",
+      "difficulty": "hard",
+      "expected_keywords": ["consciencia", "medición", "sistemas cognitivos", "artificial"],
+      "source_documents": ["document_university_3.pdf"]
+    },
+    {
+      "id": 43,
+      "category": "investigacion_cientifica",
+      "question": "¿Qué métodos de investigación se utilizan en el desarrollo sostenible con IA?",
+      "difficulty": "medium",
+      "expected_keywords": ["investigación", "desarrollo sostenible", "metodología", "IA"],
+      "source_documents": ["document_international_26.pdf"]
+    },
+    {
+      "id": 44,
+      "category": "investigacion_cientifica",
+      "question": "¿Cuál es la relación entre inteligencia artificial y cognición humana?",
+      "difficulty": "medium",
+      "expected_keywords": ["cognición", "humana", "IA", "dualidad"],
+      "source_documents": ["document_international_7.pdf"]
+    },
+    {
+      "id": 45,
+      "category": "investigacion_cientifica",
+      "question": "¿Qué aspectos cognitivos de la IA se están investigando actualmente?",
+      "difficulty": "medium",
+      "expected_keywords": ["aspectos cognitivos", "investigación", "futuro", "desarrollo"],
+      "source_documents": ["document_international_7.pdf"]
+    },
+    {
+      "id": 46,
+      "category": "investigacion_cientifica",
+      "question": "¿Cómo se aplica la IA en ingeniería de software automatizada?",
+      "difficulty": "medium",
+      "expected_keywords": ["ingeniería de software", "automatización", "desarrollo"],
+      "source_documents": ["document_international_10.pdf"]
+    },
+    {
+      "id": 47,
+      "category": "investigacion_cientifica",
+      "question": "¿Qué impacto tiene la IA en la investigación educativa?",
+      "difficulty": "medium",
+      "expected_keywords": ["educación", "investigación", "aprendizaje", "tecnología"],
+      "source_documents": ["document_international_11.pdf", "document_international_8.pdf"]
+    },
+    {
+      "id": 48,
+      "category": "investigacion_cientifica",
+      "question": "¿Cómo se utilizan herramientas multimedia con IA?",
+      "difficulty": "easy",
+      "expected_keywords": ["multimedia", "herramientas", "aplicaciones", "procesamiento"],
+      "source_documents": ["document_international_13.pdf"]
+    },
+    {
+      "id": 49,
+      "category": "investigacion_cientifica",
+      "question": "¿Qué desafíos metodológicos enfrentan las investigaciones en IA?",
+      "difficulty": "hard",
+      "expected_keywords": ["metodología", "desafíos", "investigación", "ciencia"],
+      "source_documents": ["document_international_26.pdf"]
+    },
+    {
+      "id": 50,
+      "category": "investigacion_cientifica",
+      "question": "¿Cómo contribuye la IA al análisis de grandes volúmenes de datos científicos?",
+      "difficulty": "medium",
+      "expected_keywords": ["big data", "análisis", "ciencia", "procesamiento"],
+      "source_documents": ["document_international_14.pdf"]
+    },
+    {
+      "id": 51,
+      "category": "colombia_universidad",
+      "question": "¿Qué ofrece el nuevo programa de Inteligencia Artificial de la Universidad de Caldas?",
+      "difficulty": "easy",
+      "expected_keywords": ["Universidad de Caldas", "programa", "formación", "IA"],
+      "source_documents": ["document_university_1.png"]
+    },
+    {
+      "id": 52,
+      "category": "colombia_universidad",
+      "question": "¿Cuál es el enfoque del proyecto de ley de IA en Colombia respecto a derechos humanos?",
+      "difficulty": "medium",
+      "expected_keywords": ["derechos humanos", "Colombia", "proyecto de ley", "protección"],
+      "source_documents": ["document_colombia_1.pdf"]
+    },
+    {
+      "id": 53,
+      "category": "colombia_universidad",
+      "question": "¿Qué instituciones promueven el proyecto de ley de IA en Colombia?",
+      "difficulty": "easy",
+      "expected_keywords": ["MinCiencias", "MinTIC", "SIC", "gobierno"],
+      "source_documents": ["document_colombia_1.pdf"]
+    },
+    {
+      "id": 54,
+      "category": "colombia_universidad",
+      "question": "¿Qué tipo de investigaciones en IA realiza la Universidad de Caldas?",
+      "difficulty": "medium",
+      "expected_keywords": ["investigación", "Universidad de Caldas", "sistemas cognitivos", "ética"],
+      "source_documents": ["document_university_2.pdf", "document_university_3.pdf", "document_university_4.pdf"]
+    },
+    {
+      "id": 55,
+      "category": "colombia_universidad",
+      "question": "¿Cuándo se publicó el decreto oficial sobre IA en Colombia?",
+      "difficulty": "easy",
+      "expected_keywords": ["decreto", "2025", "Colombia", "Diario Oficial"],
+      "source_documents": ["document_colombia_3.pdf"]
+    },
+    {
+      "id": 56,
+      "category": "colombia_universidad",
+      "question": "¿Qué aspectos cubre la investigación sobre ética de IA en la Universidad de Caldas?",
+      "difficulty": "medium",
+      "expected_keywords": ["ética", "herramientas", "evaluación", "sistemas"],
+      "source_documents": ["document_university_4.pdf"]
+    },
+    {
+      "id": 57,
+      "category": "colombia_universidad",
+      "question": "¿Cómo se relaciona la formación académica en IA con las necesidades del país?",
+      "difficulty": "medium",
+      "expected_keywords": ["formación", "académica", "necesidades", "desarrollo"],
+      "source_documents": ["document_university_1.png", "document_colombia_1.pdf"]
+    },
+    {
+      "id": 58,
+      "category": "colombia_universidad",
+      "question": "¿Qué métodos de machine learning investiga la Universidad de Caldas para aplicaciones médicas?",
+      "difficulty": "hard",
+      "expected_keywords": ["machine learning", "medicina", "CNN", "investigación"],
+      "source_documents": ["document_university_5.pdf"]
+    },
+    {
+      "id": 59,
+      "category": "colombia_universidad",
+      "question": "¿Cuál es la importancia de tener un marco jurídico de IA en Colombia?",
+      "difficulty": "medium",
+      "expected_keywords": ["marco jurídico", "importancia", "regulación", "desarrollo"],
+      "source_documents": ["document_colombia_1.pdf"]
+    },
+    {
+      "id": 60,
+      "category": "colombia_universidad",
+      "question": "¿Qué líneas de investigación en consciencia artificial desarrolla la Universidad de Caldas?",
+      "difficulty": "hard",
+      "expected_keywords": ["consciencia", "artificial", "investigación", "sistemas cognitivos"],
+      "source_documents": ["document_university_2.pdf", "document_university_3.pdf"]
+    }
+  ]
+}
