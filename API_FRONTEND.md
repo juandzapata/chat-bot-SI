@@ -212,7 +212,85 @@ GET /sources
 
 ---
 
-### 6. Ingesta de Documentos (Admin)
+### 6. Política de Uso y Privacidad
+**Obtener política de uso, privacidad y términos del servicio**
+
+```http
+GET /policy
+```
+
+**Response:**
+```
+# 📜 Política de Uso y Privacidad - ChatBot IA Universidad de Caldas
+
+**Última actualización:** 19 de noviembre de 2025  
+**Versión:** 1.0.0
+
+---
+
+## 1. Introducción
+
+Bienvenido al ChatBot de Inteligencia Artificial de la Universidad de Caldas...
+```
+
+**Content-Type:** `text/plain; charset=utf-8`
+
+**Casos de uso:**
+- Mostrar política en página "Términos y Condiciones"
+- Footer con enlace a política
+- Página "Acerca de" con información sobre privacidad y uso responsable
+- Cumplimiento normativo (GDPR, Ley 1581 de Colombia)
+- Modal de aceptación de términos antes de usar el chatbot
+
+**Secciones incluidas en la política:**
+- Introducción y alcance del servicio
+- Uso responsable y limitaciones
+- Privacidad y protección de datos (no se almacenan datos personales)
+- Fuentes de información utilizadas (Colombia, Internacional, Universidad)
+- Modelos de IA utilizados (Gemini, LLaMA 3)
+- Derechos de autor y propiedad intelectual
+- Limitación de responsabilidad
+- Cumplimiento normativo (GDPR, Ley 1581 Colombia, Habeas Data)
+- Información de contacto
+- Notificación de cambios en la política
+
+**Ejemplo de implementación en Frontend:**
+
+```typescript
+// React/Next.js
+async function fetchPolicy() {
+  const response = await fetch('http://localhost:9000/policy');
+  const policyText = await response.text();
+  return policyText; // Markdown text
+}
+
+// Renderizar en componente
+import ReactMarkdown from 'react-markdown';
+
+function PolicyPage() {
+  const [policy, setPolicy] = useState('');
+  
+  useEffect(() => {
+    fetchPolicy().then(setPolicy);
+  }, []);
+  
+  return <ReactMarkdown>{policy}</ReactMarkdown>;
+}
+```
+
+```javascript
+// JavaScript Vanilla
+fetch('http://localhost:9000/policy')
+  .then(res => res.text())
+  .then(policyMarkdown => {
+    // Mostrar en modal o página dedicada
+    document.getElementById('policy-content').textContent = policyMarkdown;
+  });
+```
+
+---
+
+### 7. Ingesta de Documentos (Admin)
 **Importar documentos al sistema**
 
 ```http
@@ -242,7 +320,37 @@ POST /ingest_all
 
 ---
 
-### 7. Prueba de Ingesta
+### 7. Ingesta de Documentos (Admin)
+**Importar documentos al sistema**
+
+```http
+POST /ingest_all
+```
+
+**Response:**
+```json
+{
+  "status": "ok",
+  "message": "Ingesta completada exitosamente",
+  "summary": {
+    "total_documents": 3,
+    "successful": 2,
+    "failed": 1
+  },
+  "details": [
+    {
+      "success": true,
+      "document_id": "doc_internacional_1",
+      "chunks_count": 10,
+      "message": "Documento ingerido exitosamente"
+    }
+  ]
+}
+```
+
+---
+
+### 8. Prueba de Ingesta
 **Insertar documento de prueba**
 
 ```http

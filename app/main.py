@@ -1,8 +1,10 @@
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import PlainTextResponse
 from config.settings import settings
 from rag.chroma_manager import add_document
 import logging
+from pathlib import Path
 
 # Configurar logging
 logging.basicConfig(level=logging.INFO)
@@ -321,6 +323,33 @@ def get_sources():
         
     except Exception as e:
         logger.error(f"Error obteniendo fuentes: {e}", exc_info=True)
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+# 📜 Endpoint para obtener política de uso y privacidad
+@app.get("/policy", response_class=PlainTextResponse)
+def get_policy():
+    """
+    Retorna la política de uso, privacidad y términos del servicio del chatbot.
+    """
+    try:
+        policy_path = Path(__file__).parent.parent / "data" / "POLICY.md"
+        
+        if not policy_path.exists():
+            logger.error(f"Archivo de política no encontrado: {policy_path}")
+            raise HTTPException(status_code=404, detail="Política no disponible")
+        
+        with open(policy_path, "r", encoding="utf-8") as f:
+            policy_content = f.read()
+        
+        logger.info("Política de uso servida exitosamente")
+        return policy_content
+        
+    except FileNotFoundError:
+        logger.error("Archivo POLICY.md no encontrado")
+        raise HTTPException(status_code=404, detail="Política no disponible")
+    except Exception as e:
+        logger.error(f"Error obteniendo política: {e}", exc_info=True)
         raise HTTPException(status_code=500, detail=str(e))
 
 

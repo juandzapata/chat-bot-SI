@@ -1,36 +1,465 @@
 {
   "documentos_regulacion_ia": [
     {
-      "id": "doc_internacional_1",
-      "titulo": "Ley de IA de la UE: primera normativa sobre inteligencia artificial",
-      "organismo": "Parlamento Europeo / Unión Europea",
-      "anio": 2024,
-      "categoria": "internacional",
-      "ruta_archivo": "data/corpus/international/document_international_1.pdf",
-      "justificacion_breve": "Es la primera ley integral de IA en el mundo[cite: 5, 6]. [cite_start]Establece normas armonizadas y clasifica los sistemas por nivel de riesgo (inaceptable, alto, limitado) para garantizar que sean seguros, transparentes y respetuosos con los derechos fundamentales[cite: 4, 18, 23, 27].",
-      "fuentes_citadas": [
-        "Parlamento Europeo, 2024, Ley de IA de la UE"
-      ],
-      "tema_clave": "Regulación legal global y clasificación de riesgos"
-    },
-    {
       "id": "doc_colombia_1",
       "titulo": "ABC Proyecto de Ley de Inteligencia Artificial (Colombia)",
-      "organismo": "Gobierno de Colombia (Promovido por MinCiencias y articulado con MinTIC/SIC)",
-      "anio": "No especificado (Iniciativa legislativa)",
+      "organismo": "Gobierno de Colombia (MinCiencias, MinTIC, SIC)",
+      "anio": 2024,
       "categoria": "colombia",
       "ruta_archivo": "data/corpus/colombia/document_colombia_1.pdf",
-      "justificacion_breve": "Iniciativa legislativa que establece un marco jurídico integral para la adopción de IA en Colombia[cite: 101]. [cite_start]Su enfoque se centra en la gestión de riesgos (cuatro niveles) y la garantía de derechos humanos[cite: 103, 109, 132].",
+      "justificacion_breve": "Iniciativa legislativa que establece un marco jurídico integral para la adopción de IA en Colombia. Su enfoque se centra en la gestión de riesgos y la garantía de derechos humanos.",
       "fuentes_citadas": [
         "Gobierno de Colombia, ABC Proyecto de Ley de Inteligencia Artificial"
       ],
       "tema_clave": "Marco jurídico integral y gobernanza nacional de la IA"
     },
     {
+      "id": "doc_colombia_3",
+      "titulo": "Decreto sobre Inteligencia Artificial - Diario Oficial de Colombia",
+      "organismo": "Congreso de la República de Colombia",
+      "anio": 2025,
+      "categoria": "colombia",
+      "ruta_archivo": "data/corpus/colombia/document_colombia_3.pdf",
+      "justificacion_breve": "Decreto oficial publicado en el Diario Oficial que regula aspectos específicos de la implementación de IA en Colombia.",
+      "fuentes_citadas": [
+        "Congreso de Colombia, Diario Oficial Edición 53.198"
+      ],
+      "tema_clave": "Normativa legal y decretos nacionales"
+    },
+    {
+      "id": "doc_internacional_1",
+      "titulo": "Ley de IA de la UE: primera normativa sobre inteligencia artificial | Noticias | Parlamento Europeo",
+      "organismo": "Revista Científica Internacional",
+      "anio": 2024,
+      "categoria": "internacional",
+      "ruta_archivo": "data/corpus/international/document_international_1.pdf",
+      "justificacion_breve": "Artículo científico sobre aplicaciones y desarrollos de IA publicado en Revista Científica Internacional.",
+      "fuentes_citadas": [
+        "Revista Científica Internacional, 2024"
+      ],
+      "tema_clave": "Investigación en IA"
+    },
+    {
+      "id": "doc_internacional_10",
+      "titulo": "Automated Software Engineering           (2026) 33:31",
+      "organismo": "Revista Científica Internacional",
+      "anio": 2024,
+      "categoria": "internacional",
+      "ruta_archivo": "data/corpus/international/document_international_10.pdf",
+      "justificacion_breve": "Investigación sobre IA. https://doi.org/10.1007/s10515-025-00578-6",
+      "fuentes_citadas": [
+        "Revista Científica Internacional, 2024"
+      ],
+      "tema_clave": "Investigación en IA"
+    },
+    {
+      "id": "doc_internacional_11",
+      "titulo": "Education and Information Technologies (2025) 30:2185–2209",
+      "organismo": "Revista Científica Internacional",
+      "anio": 2024,
+      "categoria": "internacional",
+      "ruta_archivo": "data/corpus/international/document_international_11.pdf",
+      "justificacion_breve": "Investigación sobre IA. https://doi.org/10.1007/s10639-024-12877-8",
+      "fuentes_citadas": [
+        "Revista Científica Internacional, 2024"
+      ],
+      "tema_clave": "Investigación en IA"
+    },
+    {
+      "id": "doc_internacional_12",
+      "titulo": "Integration of Artificial Vision and Image Processing into a Pick and Place Collaborative Robotic System",
+      "organismo": "Revista Científica Internacional",
+      "anio": 2024,
+      "categoria": "internacional",
+      "ruta_archivo": "data/corpus/international/document_international_12.pdf",
+      "justificacion_breve": "Artículo científico sobre aplicaciones y desarrollos de IA publicado en Revista Científica Internacional.",
+      "fuentes_citadas": [
+        "Revista Científica Internacional, 2024"
+      ],
+      "tema_clave": "Investigación en IA"
+    },
+    {
+      "id": "doc_internacional_13",
+      "titulo": "Multimedia Tools and Applications (2025) 84:23661–23700",
+      "organismo": "Revista Científica Internacional",
+      "anio": 2024,
+      "categoria": "internacional",
+      "ruta_archivo": "data/corpus/international/document_international_13.pdf",
+      "justificacion_breve": "Investigación sobre IA. https://doi.org/10.1007/s11042-024-20016-1",
+      "fuentes_citadas": [
+        "Revista Científica Internacional, 2024"
+      ],
+      "tema_clave": "Investigación en IA"
+    },
+    {
+      "id": "doc_internacional_14",
+      "titulo": "VIS+AI: integrating visualization with artificial intelligence for",
+      "organismo": "Revista Científica Internacional",
+      "anio": 2024,
+      "categoria": "internacional",
+      "ruta_archivo": "data/corpus/international/document_international_14.pdf",
+      "justificacion_breve": "Investigación sobre IA. efficient data analysis",
+      "fuentes_citadas": [
+        "Revista Científica Internacional, 2024"
+      ],
+      "tema_clave": "Investigación en IA"
+    },
+    {
+      "id": "doc_internacional_15",
+      "titulo": "A survey on large language model based autonomous agents",
+      "organismo": "Revista Científica Internacional",
+      "anio": 2024,
+      "categoria": "internacional",
+      "ruta_archivo": "data/corpus/international/document_international_15.pdf",
+      "justificacion_breve": "Investigación sobre IA. Lei WANG, Chen MA*, Xueyang FENG*, Zeyu ZHANG, Hao YANG, Jingsen ZHANG,",
+      "fuentes_citadas": [
+        "Revista Científica Internacional, 2024"
+      ],
+      "tema_clave": "Investigación en IA"
+    },
+    {
+      "id": "doc_internacional_16",
+      "titulo": "The application of artificial intelligence in the field of mental health: a systematic review",
+      "organismo": "Springer Nature",
+      "anio": 2025,
+      "categoria": "internacional",
+      "ruta_archivo": "data/corpus/international/document_international_16.pdf",
+      "justificacion_breve": "Artículo científico sobre aplicaciones y desarrollos de IA publicado en Springer Nature.",
+      "fuentes_citadas": [
+        "Springer Nature, 2025"
+      ],
+      "tema_clave": "Investigación académica en IA"
+    },
+    {
+      "id": "doc_internacional_17",
+      "titulo": "Cross-validation of an artificial intelligence tool for fracture classification and localization on conventional radiography in Dutch population",
+      "organismo": "Revista Científica Internacional",
+      "anio": 2024,
+      "categoria": "internacional",
+      "ruta_archivo": "data/corpus/international/document_international_17.pdf",
+      "justificacion_breve": "Artículo científico sobre aplicaciones y desarrollos de IA publicado en Revista Científica Internacional.",
+      "fuentes_citadas": [
+        "Revista Científica Internacional, 2024"
+      ],
+      "tema_clave": "Investigación en IA"
+    },
+    {
+      "id": "doc_internacional_18",
+      "titulo": "Artificial Intelligence Meets Flexible Sensors: Emerging Smart Flexible Sensing Systems Driven by Machine Learning and Artificial Synapses",
+      "organismo": "Revista Científica Internacional",
+      "anio": 2024,
+      "categoria": "internacional",
+      "ruta_archivo": "data/corpus/international/document_international_18.pdf",
+      "justificacion_breve": "Artículo científico sobre aplicaciones y desarrollos de IA publicado en Revista Científica Internacional.",
+      "fuentes_citadas": [
+        "Revista Científica Internacional, 2024"
+      ],
+      "tema_clave": "Investigación en IA"
+    },
+    {
+      "id": "doc_internacional_19",
+      "titulo": "Artificial intelligence in the service of entrepreneurial finance: knowledge structure and the foundational algorithmic paradigm",
+      "organismo": "Revista Científica Internacional",
+      "anio": 2024,
+      "categoria": "internacional",
+      "ruta_archivo": "data/corpus/international/document_international_19.pdf",
+      "justificacion_breve": "Artículo científico sobre aplicaciones y desarrollos de IA publicado en Revista Científica Internacional.",
+      "fuentes_citadas": [
+        "Revista Científica Internacional, 2024"
+      ],
+      "tema_clave": "Investigación en IA"
+    },
+    {
+      "id": "doc_internacional_20",
+      "titulo": "RESEARCH Open Access",
+      "organismo": "Revista Científica Internacional",
+      "anio": 2024,
+      "categoria": "internacional",
+      "ruta_archivo": "data/corpus/international/document_international_20.pdf",
+      "justificacion_breve": "Investigación sobre IA. © The Author(s) 2025. Open Access  This article is licensed under a Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International",
+      "fuentes_citadas": [
+        "Revista Científica Internacional, 2024"
+      ],
+      "tema_clave": "Investigación en IA"
+    },
+    {
+      "id": "doc_internacional_21",
+      "titulo": "Artificial Intelligence (AI)-driven approach to climate action and sustainable development",
+      "organismo": "Revista Científica Internacional",
+      "anio": 2024,
+      "categoria": "internacional",
+      "ruta_archivo": "data/corpus/international/document_international_21.pdf",
+      "justificacion_breve": "Artículo científico sobre aplicaciones y desarrollos de IA publicado en Revista Científica Internacional.",
+      "fuentes_citadas": [
+        "Revista Científica Internacional, 2024"
+      ],
+      "tema_clave": "Investigación en IA"
+    },
+    {
+      "id": "doc_internacional_22",
+      "titulo": "Towards conversational diagnostic artificial intelligence",
+      "organismo": "Nature Publishing Group",
+      "anio": 2025,
+      "categoria": "internacional",
+      "ruta_archivo": "data/corpus/international/document_international_22.pdf",
+      "justificacion_breve": "Artículo científico sobre aplicaciones y desarrollos de IA publicado en Nature Publishing Group.",
+      "fuentes_citadas": [
+        "Nature Publishing Group, 2025"
+      ],
+      "tema_clave": "Investigación científica en IA"
+    },
+    {
+      "id": "doc_internacional_23",
+      "titulo": "Delegation to artificial intelligence can increase dishonest behaviour",
+      "organismo": "Nature Publishing Group",
+      "anio": 2025,
+      "categoria": "internacional",
+      "ruta_archivo": "data/corpus/international/document_international_23.pdf",
+      "justificacion_breve": "Artículo científico sobre aplicaciones y desarrollos de IA publicado en Nature Publishing Group.",
+      "fuentes_citadas": [
+        "Nature Publishing Group, 2025"
+      ],
+      "tema_clave": "Investigación científica en IA"
+    },
+    {
+      "id": "doc_internacional_24",
+      "titulo": "Identifying artificial intelligence-",
+      "organismo": "Revista Científica Internacional",
+      "anio": 2024,
+      "categoria": "internacional",
+      "ruta_archivo": "data/corpus/international/document_international_24.pdf",
+      "justificacion_breve": "Investigación sobre IA. generated content using the",
+      "fuentes_citadas": [
+        "Revista Científica Internacional, 2024"
+      ],
+      "tema_clave": "Investigación en IA"
+    },
+    {
+      "id": "doc_internacional_25",
+      "titulo": "The analysis of learning investment",
+      "organismo": "Revista Científica Internacional",
+      "anio": 2024,
+      "categoria": "internacional",
+      "ruta_archivo": "data/corpus/international/document_international_25.pdf",
+      "justificacion_breve": "Investigación sobre IA. effect for artificial intelligence",
+      "fuentes_citadas": [
+        "Revista Científica Internacional, 2024"
+      ],
+      "tema_clave": "Investigación en IA"
+    },
+    {
+      "id": "doc_internacional_26",
+      "titulo": "Artificial intelligence in sustainable development research",
+      "organismo": "Nature Publishing Group",
+      "anio": 2025,
+      "categoria": "internacional",
+      "ruta_archivo": "data/corpus/international/document_international_26.pdf",
+      "justificacion_breve": "Artículo científico sobre aplicaciones y desarrollos de IA publicado en Nature Publishing Group.",
+      "fuentes_citadas": [
+        "Nature Publishing Group, 2025"
+      ],
+      "tema_clave": "Investigación científica en IA"
+    },
+    {
+      "id": "doc_internacional_27",
+      "titulo": "Artificial intelligence in soil microbiome analysis: a potential application in predicting and enhancing soil health—a review",
+      "organismo": "Revista Científica Internacional",
+      "anio": 2024,
+      "categoria": "internacional",
+      "ruta_archivo": "data/corpus/international/document_international_27.pdf",
+      "justificacion_breve": "Artículo científico sobre aplicaciones y desarrollos de IA publicado en Revista Científica Internacional.",
+      "fuentes_citadas": [
+        "Revista Científica Internacional, 2024"
+      ],
+      "tema_clave": "Investigación en IA"
+    },
+    {
+      "id": "doc_internacional_28",
+      "titulo": "Artificial intelligence in personalized medicine: transforming diagnosis and treatment",
+      "organismo": "Revista Científica Internacional",
+      "anio": 2024,
+      "categoria": "internacional",
+      "ruta_archivo": "data/corpus/international/document_international_28.pdf",
+      "justificacion_breve": "Artículo científico sobre aplicaciones y desarrollos de IA publicado en Revista Científica Internacional.",
+      "fuentes_citadas": [
+        "Revista Científica Internacional, 2024"
+      ],
+      "tema_clave": "Investigación en IA"
+    },
+    {
+      "id": "doc_internacional_29",
+      "titulo": "A comprehensive review on artificial intelligence driven predictive maintenance in vehicles: technologies, challenges and future research directions",
+      "organismo": "Revista Científica Internacional",
+      "anio": 2024,
+      "categoria": "internacional",
+      "ruta_archivo": "data/corpus/international/document_international_29.pdf",
+      "justificacion_breve": "Artículo científico sobre aplicaciones y desarrollos de IA publicado en Revista Científica Internacional.",
+      "fuentes_citadas": [
+        "Revista Científica Internacional, 2024"
+      ],
+      "tema_clave": "Investigación en IA"
+    },
+    {
+      "id": "doc_internacional_3",
+      "titulo": "AgentArcEval: An architecture evaluation method for foundation model based agents",
+      "organismo": "Elsevier",
+      "anio": 2024,
+      "categoria": "internacional",
+      "ruta_archivo": "data/corpus/international/document_international_3.pdf",
+      "justificacion_breve": "Artículo científico sobre aplicaciones y desarrollos de IA publicado en Elsevier.",
+      "fuentes_citadas": [
+        "Elsevier, 2024"
+      ],
+      "tema_clave": "Investigación aplicada en IA"
+    },
+    {
+      "id": "doc_internacional_30",
+      "titulo": "Rui RONG, Shoufeng MA, Nianlu REN, Qinping LIN, Ning JIA",
+      "organismo": "Revista Científica Internacional",
+      "anio": 2024,
+      "categoria": "internacional",
+      "ruta_archivo": "data/corpus/international/document_international_30.pdf",
+      "justificacion_breve": "Investigación sobre IA. Generative artificial intelligence in intelligent transportation",
+      "fuentes_citadas": [
+        "Revista Científica Internacional, 2024"
+      ],
+      "tema_clave": "Investigación en IA"
+    },
+    {
+      "id": "doc_internacional_31",
+      "titulo": "A study on ethical implications of artificial intelligence adoption in business: challenges and best practices",
+      "organismo": "Revista Científica Internacional",
+      "anio": 2024,
+      "categoria": "internacional",
+      "ruta_archivo": "data/corpus/international/document_international_31.pdf",
+      "justificacion_breve": "Artículo científico sobre aplicaciones y desarrollos de IA publicado en Revista Científica Internacional.",
+      "fuentes_citadas": [
+        "Revista Científica Internacional, 2024"
+      ],
+      "tema_clave": "Investigación en IA"
+    },
+    {
+      "id": "doc_internacional_32",
+      "titulo": "REVIEW Open Access",
+      "organismo": "Revista Científica Internacional",
+      "anio": 2024,
+      "categoria": "internacional",
+      "ruta_archivo": "data/corpus/international/document_international_32.pdf",
+      "justificacion_breve": "Investigación sobre IA. © The Author(s) 2025. Open Access  This article is licensed under a Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International",
+      "fuentes_citadas": [
+        "Revista Científica Internacional, 2024"
+      ],
+      "tema_clave": "Investigación en IA"
+    },
+    {
+      "id": "doc_internacional_33",
+      "titulo": "REVIEW",
+      "organismo": "Revista Científica Internacional",
+      "anio": 2024,
+      "categoria": "internacional",
+      "ruta_archivo": "data/corpus/international/document_international_33.pdf",
+      "justificacion_breve": "Investigación sobre IA. AI and Ethics (2025) 5:4789–4841",
+      "fuentes_citadas": [
+        "Revista Científica Internacional, 2024"
+      ],
+      "tema_clave": "Investigación en IA"
+    },
+    {
+      "id": "doc_internacional_34",
+      "titulo": "REVIEW PAPER",
+      "organismo": "Revista Científica Internacional",
+      "anio": 2024,
+      "categoria": "internacional",
+      "ruta_archivo": "data/corpus/international/document_international_34.pdf",
+      "justificacion_breve": "Investigación sobre IA. Digital Society (2024) 3:48",
+      "fuentes_citadas": [
+        "Revista Científica Internacional, 2024"
+      ],
+      "tema_clave": "Investigación en IA"
+    },
+    {
+      "id": "doc_internacional_4",
+      "titulo": "An Overview of Artificial Intelligence Ethics",
+      "organismo": "IEEE (Institute of Electrical and Electronics Engineers)",
+      "anio": 2023,
+      "categoria": "internacional",
+      "ruta_archivo": "data/corpus/international/document_international_4.pdf",
+      "justificacion_breve": "Artículo científico sobre aplicaciones y desarrollos de IA publicado en IEEE (Institute of Electrical and Electronics Engineers).",
+      "fuentes_citadas": [
+        "IEEE (Institute of Electrical and Electronics Engineers), 2023"
+      ],
+      "tema_clave": "Investigación técnica en IA"
+    },
+    {
+      "id": "doc_internacional_5",
+      "titulo": "Chapter 6 Artificial Intelligence (AI)",
+      "organismo": "Springer Nature",
+      "anio": 2025,
+      "categoria": "internacional",
+      "ruta_archivo": "data/corpus/international/document_international_5.pdf",
+      "justificacion_breve": "Artículo científico sobre aplicaciones y desarrollos de IA publicado en Springer Nature.",
+      "fuentes_citadas": [
+        "Springer Nature, 2025"
+      ],
+      "tema_clave": "Investigación académica en IA"
+    },
+    {
+      "id": "doc_internacional_6",
+      "titulo": "Artificial intelligence in web accessibility: A systematic mapping study",
+      "organismo": "Elsevier",
+      "anio": 2024,
+      "categoria": "internacional",
+      "ruta_archivo": "data/corpus/international/document_international_6.pdf",
+      "justificacion_breve": "Artículo científico sobre aplicaciones y desarrollos de IA publicado en Elsevier.",
+      "fuentes_citadas": [
+        "Elsevier, 2024"
+      ],
+      "tema_clave": "Investigación aplicada en IA"
+    },
+    {
+      "id": "doc_internacional_7",
+      "titulo": "Human-Machine Duality: What&#x2019;s Next in Cognitive Aspects of Artificial Intelligence?",
+      "organismo": "Revista Científica Internacional",
+      "anio": 2024,
+      "categoria": "internacional",
+      "ruta_archivo": "data/corpus/international/document_international_7.pdf",
+      "justificacion_breve": "Artículo científico sobre aplicaciones y desarrollos de IA publicado en Revista Científica Internacional.",
+      "fuentes_citadas": [
+        "Revista Científica Internacional, 2024"
+      ],
+      "tema_clave": "Investigación en IA"
+    },
+    {
+      "id": "doc_internacional_8",
+      "titulo": "©\t Koninklijke\tBrill\tBV,\tLeiden,\t2025 | DOI:10.1163/9789004712119_008",
+      "organismo": "Brill Publishers",
+      "anio": 2025,
+      "categoria": "internacional",
+      "ruta_archivo": "data/corpus/international/document_international_8.pdf",
+      "justificacion_breve": "Investigación sobre IA. This is an open access chapter distributed under the terms of the CC-BY-NC-ND \t4.0\tlicense.",
+      "fuentes_citadas": [
+        "Brill Publishers, 2025"
+      ],
+      "tema_clave": "IA en educación y sociedad"
+    },
+    {
+      "id": "doc_internacional_9",
+      "titulo": "Responsible guidelines for authorship attribution tasks in NLP",
+      "organismo": "Revista Científica Internacional",
+      "anio": 2024,
+      "categoria": "internacional",
+      "ruta_archivo": "data/corpus/international/document_international_9.pdf",
+      "justificacion_breve": "Artículo científico sobre aplicaciones y desarrollos de IA publicado en Revista Científica Internacional.",
+      "fuentes_citadas": [
+        "Revista Científica Internacional, 2024"
+      ],
+      "tema_clave": "Investigación en IA"
+    },
+    {
       "id": "doc_universidad_1",
       "titulo": "Formación para el futuro: Universidad de Caldas presentó el nuevo programa de Inteligencia Artificial",
       "organismo": "Universidad de Caldas",
-      "anio": "No especificado",
+      "anio": 2024,
       "categoria": "universidad",
       "ruta_archivo": "data/corpus/university/document_university_1.png",
       "justificacion_breve": "Artículo que anuncia el nuevo programa de Inteligencia Artificial de la universidad, reflejando la adopción y formalización de la temática de IA en el contexto académico local.",
@@ -38,6 +467,58 @@
         "Universidad de Caldas, Artículo sobre el nuevo programa de IA"
       ],
       "tema_clave": "Adopción académica y programas de formación en IA"
+    },
+    {
+      "id": "doc_universidad_2",
+      "titulo": "A systematic review of integrated information theory: a perspective from artificial intelligence and the cognitive sciences",
+      "organismo": "Universidad de Caldas / Investigación Académica",
+      "anio": 2025,
+      "categoria": "universidad",
+      "ruta_archivo": "data/corpus/university/document_university_2.pdf",
+      "justificacion_breve": "Investigación académica sobre IA y sus aplicaciones. S.I.: KNOWLEDGE SERVICES: CHALLENGES AND FUTURE PROSPECTS A systematic review of integrated information theory: a perspective from artificial intellig",
+      "fuentes_citadas": [
+        "Universidad de Caldas, Investigación IA"
+      ],
+      "tema_clave": "Investigación académica en IA"
+    },
+    {
+      "id": "doc_universidad_3",
+      "titulo": "Development of a model for the study and measurement of consciousness in artificial cognitive systems based on the integrated information theory",
+      "organismo": "Universidad de Caldas / Investigación Académica",
+      "anio": 2025,
+      "categoria": "universidad",
+      "ruta_archivo": "data/corpus/university/document_university_3.pdf",
+      "justificacion_breve": "Investigación académica sobre IA y sus aplicaciones. S.I.: HYBRID MACHINE LEARNING TECHNI QUES IN MULTIDISCIPLINARY DIGITAL ORGANISATIONS (HMLT-MDO) Development of a model for the study and measurement",
+      "fuentes_citadas": [
+        "Universidad de Caldas, Investigación IA"
+      ],
+      "tema_clave": "Investigación académica en IA"
+    },
+    {
+      "id": "doc_universidad_4",
+      "titulo": "Applying the ethics of AI: a systematic review of tools for developing and assessing AI-based systems",
+      "organismo": "Universidad de Caldas / Investigación Académica",
+      "anio": 2025,
+      "categoria": "universidad",
+      "ruta_archivo": "data/corpus/university/document_university_4.pdf",
+      "justificacion_breve": "Investigación académica sobre IA y sus aplicaciones. Vol.:(0123456789) Artificial Intelligence Review (2024) 57:110 https://doi.org/10.1007/s10462-024-10740-3",
+      "fuentes_citadas": [
+        "Universidad de Caldas, Investigación IA"
+      ],
+      "tema_clave": "Investigación académica en IA"
+    },
+    {
+      "id": "doc_universidad_5",
+      "titulo": "A comparative study of CNN-capsule-net, CNN-transformer encoder, and traditional machine learning algorithms to classify epileptic seizure",
+      "organismo": "Universidad de Caldas / Investigación Académica",
+      "anio": 2025,
+      "categoria": "universidad",
+      "ruta_archivo": "data/corpus/university/document_university_5.pdf",
+      "justificacion_breve": "Investigación académica sobre IA y sus aplicaciones. Holguin‑Garcia et al. BMC Medical Informatics and Decision Making           (2024) 24:60 https://doi.org/10.1186/s12911‑024‑02460‑z",
+      "fuentes_citadas": [
+        "Universidad de Caldas, Investigación IA"
+      ],
+      "tema_clave": "Investigación académica en IA"
     }
   ]
 }

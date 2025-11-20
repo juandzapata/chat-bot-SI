@@ -22,8 +22,11 @@ class GeminiEmbeddingFunction(EmbeddingFunction):
         if not text or text.strip() == "":
             raise ValueError("El texto para embedding no puede estar vacío.")
 
-        model = genai.GenerativeModel("models/text-embedding-004")
-        response = model.embed_content(content=text)
+        # Usar directamente genai.embed_content en lugar de GenerativeModel
+        response = genai.embed_content(
+            model="models/text-embedding-004",
+            content=text
+        )
         return response["embedding"]
 
 # Instancia única para usar en todo el proyecto
