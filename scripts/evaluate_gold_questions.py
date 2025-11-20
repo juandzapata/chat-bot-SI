@@ -42,12 +42,12 @@ class ChatbotEvaluator:
         print(f"✅ Dataset cargado: {dataset['metadata']['total_questions']} preguntas\n")
         return dataset
     
-    def query_chatbot(self, question: str, top_k: int = 3) -> Dict[str, Any]:
+    def query_chatbot(self, question: str, model: str = "gemini", top_k: int = 3) -> Dict[str, Any]:
         """Realiza una consulta al chatbot"""
         try:
             response = requests.post(
                 f"{API_BASE_URL}/chat",
-                json={"question": question, "top_k": top_k},
+                json={"question": question, "model": model, "top_k": top_k},
                 timeout=60
             )
             response.raise_for_status()
@@ -79,13 +79,16 @@ class ChatbotEvaluator:
         # Extraer nombres de archivos de las fuentes recuperadas
         retrieved_docs = set()
         for source in retrieved_sources:
-            # Extraer nombre de archivo del campo 'source' o 'title'
-            source_text = source.get('source', '') + source.get('title', '')
-            for expected_doc in expected_docs:
-                doc_name = expected_doc.replace('.pdf', '').replace('.png', '')
-                if doc_name.lower() in source_text.lower():
-                    retrieved_docs.add(expected_doc)
-                    break
+            file_path = source.get('file_path', '')
+            if file_path:
+                # Extraer solo el nombre del archivo de la ruta completa
+                file_name = file_path.split('/')[-1]  # Ej: document_international_16.pdf
+                
+                # Comparar con cada documento esperado
+                for expected_doc in expected_docs:
+                    if file_name == expected_doc:
+                        retrieved_docs.add(expected_doc)
+                        break
         
         # Calcular intersección
         matches = len(retrieved_docs)
@@ -223,7 +226,7 @@ class ChatbotEvaluator:
         
         return max(0, score)
     
-    def evaluate_question(self, question_data: Dict[str, Any], index: int, total: int) -> Dict[str, Any]:
+    def evaluate_question(self, question_data: Dict[str, Any], model: str, index: int, total: int) -> Dict[str, Any]:
         """Evalúa una pregunta individual con todas las métricas"""
         question_id = question_data['id']
         question = question_data['question']
@@ -232,12 +235,12 @@ class ChatbotEvaluator:
         expected_keywords = question_data.get('expected_keywords', [])
         expected_docs = question_data.get('source_documents', [])
         
-        print(f"[{index}/{total}] Evaluando pregunta #{question_id} ({category} - {difficulty})")
+        print(f"[{index}/{total}] Evaluando pregunta #{question_id} ({category} - {difficulty}) - Modelo: {model}")
         print(f"  ❓ {question}")
         
         # 1. Query al chatbot
         start_time = time.time()
-        response = self.query_chatbot(question)
+        response = self.query_chatbot(question, model=model)
         response_time = time.time() - start_time
         
         # Verificar error
@@ -248,6 +251,7 @@ class ChatbotEvaluator:
                 "question": question,
                 "category": category,
                 "difficulty": difficulty,
+                "model": model,
                 "error": response['error'],
                 "response_time": response_time,
                 "scores": {
@@ -286,6 +290,7 @@ class ChatbotEvaluator:
             "question": question,
             "category": category,
             "difficulty": difficulty,
+            "model": model,
             "answer": answer,
             "sources": sources,
             "expected_keywords": expected_keywords,
@@ -302,10 +307,14 @@ class ChatbotEvaluator:
             }
         }
     
-    def run_evaluation(self):
-        """Ejecuta la evaluación completa"""
+    def run_evaluation(self, models: List[str] = None):
+        """Ejecuta la evaluación completa para uno o más modelos"""
+        if models is None:
+            models = ["gemini", "llama3"]
+        
         print("=" * 70)
         print("🚀 INICIANDO EVALUACIÓN AUTOMATIZADA DEL CHATBOT")
+        print(f"📋 Modelos a evaluar: {', '.join(models)}")
         print("=" * 70)
         print()
         
@@ -324,16 +333,21 @@ class ChatbotEvaluator:
             print(f"   Asegúrate de que el servidor esté corriendo: docker-compose up -d\n")
             sys.exit(1)
         
-        # Evaluar cada pregunta
+        # Evaluar cada pregunta con cada modelo
         self.start_time = datetime.now()
         total_questions = len(questions)
         
-        for idx, question_data in enumerate(questions, 1):
-            result = self.evaluate_question(question_data, idx, total_questions)
-            self.results.append(result)
+        for model in models:
+            print(f"\n{'='*70}")
+            print(f"🤖 EVALUANDO MODELO: {model.upper()}")
+            print(f"{'='*70}\n")
             
-            # Pequeña pausa para no saturar
-            time.sleep(0.5)
+            for idx, question_data in enumerate(questions, 1):
+                result = self.evaluate_question(question_data, model, idx, total_questions)
+                self.results.append(result)
+                
+                # Pequeña pausa para no saturar
+                time.sleep(0.5)
         
         self.end_time = datetime.now()
         
@@ -365,7 +379,7 @@ class ChatbotEvaluator:
         print(f"💾 Resultados guardados en: {results_file}")
     
     def calculate_summary_stats(self) -> Dict[str, Any]:
-        """Calcula estadísticas agregadas"""
+        """Calcula estadísticas agregadas por modelo"""
         total = len(self.results)
         errors = sum(1 for r in self.results if 'error' in r)
         successful = total - errors
@@ -373,59 +387,79 @@ class ChatbotEvaluator:
         if successful == 0:
             return {"error": "No se completó ninguna pregunta exitosamente"}
         
-        # Promedios por métrica
-        avg_exactitud = sum(r['scores']['exactitud'] for r in self.results if 'error' not in r) / successful
-        avg_cobertura = sum(r['scores']['cobertura'] for r in self.results if 'error' not in r) / successful
-        avg_claridad = sum(r['scores']['claridad'] for r in self.results if 'error' not in r) / successful
-        avg_citas = sum(r['scores']['citas'] for r in self.results if 'error' not in r) / successful
-        avg_alucinacion = sum(r['scores']['alucinacion'] for r in self.results if 'error' not in r) / successful
-        avg_seguridad = sum(r['scores']['seguridad'] for r in self.results if 'error' not in r) / successful
-        avg_total = sum(r['scores']['total'] for r in self.results if 'error' not in r) / successful
-        
-        # Por categoría
-        categories = {}
+        # Agrupar por modelo
+        models_data = {}
         for result in self.results:
             if 'error' in result:
                 continue
-            cat = result['category']
-            if cat not in categories:
-                categories[cat] = []
-            categories[cat].append(result['scores']['total'])
+            model = result.get('model', 'unknown')
+            if model not in models_data:
+                models_data[model] = []
+            models_data[model].append(result)
         
-        category_avg = {cat: sum(scores) / len(scores) for cat, scores in categories.items()}
+        # Calcular estadísticas por modelo
+        model_stats = {}
+        for model, results in models_data.items():
+            n = len(results)
+            
+            # Promedios por métrica
+            avg_exactitud = sum(r['scores']['exactitud'] for r in results) / n
+            avg_cobertura = sum(r['scores']['cobertura'] for r in results) / n
+            avg_claridad = sum(r['scores']['claridad'] for r in results) / n
+            avg_citas = sum(r['scores']['citas'] for r in results) / n
+            avg_alucinacion = sum(r['scores']['alucinacion'] for r in results) / n
+            avg_seguridad = sum(r['scores']['seguridad'] for r in results) / n
+            avg_total = sum(r['scores']['total'] for r in results) / n
+            
+            # Por categoría
+            categories = {}
+            for result in results:
+                cat = result['category']
+                if cat not in categories:
+                    categories[cat] = []
+                categories[cat].append(result['scores']['total'])
+            
+            category_avg = {cat: sum(scores) / len(scores) for cat, scores in categories.items()}
+            
+            # Por dificultad
+            difficulties = {}
+            for result in results:
+                diff = result['difficulty']
+                if diff not in difficulties:
+                    difficulties[diff] = []
+                difficulties[diff].append(result['scores']['total'])
+            
+            difficulty_avg = {diff: sum(scores) / len(scores) for diff, scores in difficulties.items()}
+            
+            model_stats[model] = {
+                "total_questions": n,
+                "average_scores": {
+                    "exactitud": round(avg_exactitud, 2),
+                    "cobertura": round(avg_cobertura, 2),
+                    "claridad": round(avg_claridad, 2),
+                    "citas": round(avg_citas, 2),
+                    "alucinacion": round(avg_alucinacion, 2),
+                    "seguridad": round(avg_seguridad, 2),
+                    "total": round(avg_total, 2)
+                },
+                "by_category": {cat: round(avg, 2) for cat, avg in category_avg.items()},
+                "by_difficulty": {diff: round(avg, 2) for diff, avg in difficulty_avg.items()},
+                "avg_response_time": round(sum(r['response_time'] for r in results) / n, 2)
+            }
         
-        # Por dificultad
-        difficulties = {}
-        for result in self.results:
-            if 'error' in result:
-                continue
-            diff = result['difficulty']
-            if diff not in difficulties:
-                difficulties[diff] = []
-            difficulties[diff].append(result['scores']['total'])
-        
-        difficulty_avg = {diff: sum(scores) / len(scores) for diff, scores in difficulties.items()}
+        # Estadísticas generales
+        avg_total_all = sum(r['scores']['total'] for r in self.results if 'error' not in r) / successful
         
         return {
             "total_questions": total,
             "successful": successful,
             "errors": errors,
-            "average_scores": {
-                "exactitud": round(avg_exactitud, 2),
-                "cobertura": round(avg_cobertura, 2),
-                "claridad": round(avg_claridad, 2),
-                "citas": round(avg_citas, 2),
-                "alucinacion": round(avg_alucinacion, 2),
-                "seguridad": round(avg_seguridad, 2),
-                "total": round(avg_total, 2)
-            },
-            "by_category": {cat: round(avg, 2) for cat, avg in category_avg.items()},
-            "by_difficulty": {diff: round(avg, 2) for diff, avg in difficulty_avg.items()},
-            "avg_response_time": round(sum(r['response_time'] for r in self.results) / total, 2)
+            "overall_average": round(avg_total_all, 2),
+            "by_model": model_stats
         }
     
     def generate_summary(self):
-        """Genera resumen en consola y archivo Markdown"""
+        """Genera resumen en consola y archivo Markdown con comparación de modelos"""
         summary = self.calculate_summary_stats()
         
         print("\n" + "=" * 70)
@@ -435,55 +469,89 @@ class ChatbotEvaluator:
         print(f"Total preguntas: {summary['total_questions']}")
         print(f"Exitosas: {summary['successful']}")
         print(f"Errores: {summary['errors']}")
-        print(f"Tiempo promedio de respuesta: {summary['avg_response_time']}s")
+        print(f"Promedio general: {summary['overall_average']}/100")
         print()
-        print("SCORES PROMEDIO (0-100):")
-        print(f"  • Exactitud:     {summary['average_scores']['exactitud']}")
-        print(f"  • Cobertura:     {summary['average_scores']['cobertura']}")
-        print(f"  • Claridad:      {summary['average_scores']['claridad']}")
-        print(f"  • Citas:         {summary['average_scores']['citas']}")
-        print(f"  • Alucinación:   {summary['average_scores']['alucinacion']}")
-        print(f"  • Seguridad:     {summary['average_scores']['seguridad']}")
-        print(f"  • TOTAL:         {summary['average_scores']['total']}")
-        print()
-        print("POR CATEGORÍA:")
-        for cat, score in summary['by_category'].items():
-            print(f"  • {cat}: {score}")
-        print()
-        print("POR DIFICULTAD:")
-        for diff, score in summary['by_difficulty'].items():
-            print(f"  • {diff}: {score}")
-        print()
+        
+        # Comparación por modelo
+        print("=" * 70)
+        print("🤖 COMPARACIÓN DE MODELOS")
+        print("=" * 70)
+        
+        for model, stats in summary['by_model'].items():
+            print(f"\n📌 {model.upper()}")
+            print(f"   Preguntas: {stats['total_questions']}")
+            print(f"   Tiempo promedio: {stats['avg_response_time']}s")
+            print(f"   SCORES PROMEDIO:")
+            print(f"     • Exactitud:     {stats['average_scores']['exactitud']}")
+            print(f"     • Cobertura:     {stats['average_scores']['cobertura']}")
+            print(f"     • Claridad:      {stats['average_scores']['claridad']}")
+            print(f"     • Citas:         {stats['average_scores']['citas']}")
+            print(f"     • Alucinación:   {stats['average_scores']['alucinacion']}")
+            print(f"     • Seguridad:     {stats['average_scores']['seguridad']}")
+            print(f"     • 🎯 TOTAL:      {stats['average_scores']['total']}/100")
+        
+        print("\n" + "=" * 70)
         
         # Generar archivo Markdown
         timestamp = self.start_time.strftime("%Y_%m_%d")
         md_file = RESULTS_DIR / f"summary_{timestamp}.md"
         
         with open(md_file, 'w', encoding='utf-8') as f:
-            f.write(f"# 📊 Resumen de Evaluación - {self.start_time.strftime('%d/%m/%Y %H:%M')}\n\n")
+            f.write(f"# 📊 Resumen de Evaluación Comparativa - {self.start_time.strftime('%d/%m/%Y %H:%M')}\n\n")
+            
             f.write("## Métricas Generales\n\n")
             f.write(f"- **Total preguntas:** {summary['total_questions']}\n")
             f.write(f"- **Exitosas:** {summary['successful']}\n")
             f.write(f"- **Errores:** {summary['errors']}\n")
-            f.write(f"- **Tiempo promedio:** {summary['avg_response_time']}s\n\n")
+            f.write(f"- **Promedio general:** {summary['overall_average']}/100\n\n")
             
-            f.write("## Scores Promedio (0-100)\n\n")
-            f.write("| Métrica | Score |\n")
-            f.write("|---------|-------|\n")
-            for metric, score in summary['average_scores'].items():
-                f.write(f"| {metric.capitalize()} | {score} |\n")
+            f.write("## 🤖 Comparación de Modelos\n\n")
             
-            f.write("\n## Por Categoría\n\n")
-            f.write("| Categoría | Score |\n")
-            f.write("|-----------|-------|\n")
-            for cat, score in summary['by_category'].items():
-                f.write(f"| {cat} | {score} |\n")
+            # Tabla comparativa
+            f.write("### Scores Promedio por Modelo\n\n")
+            f.write("| Métrica | " + " | ".join(summary['by_model'].keys()) + " |\n")
+            f.write("|" + "---|" * (len(summary['by_model']) + 1) + "\n")
             
-            f.write("\n## Por Dificultad\n\n")
-            f.write("| Dificultad | Score |\n")
-            f.write("|------------|-------|\n")
-            for diff, score in summary['by_difficulty'].items():
-                f.write(f"| {diff} | {score} |\n")
+            metrics = ['exactitud', 'cobertura', 'claridad', 'citas', 'alucinacion', 'seguridad', 'total']
+            metric_names = {
+                'exactitud': 'Exactitud',
+                'cobertura': 'Cobertura',
+                'claridad': 'Claridad',
+                'citas': 'Citas',
+                'alucinacion': 'Alucinación',
+                'seguridad': 'Seguridad',
+                'total': '**TOTAL**'
+            }
+            
+            for metric in metrics:
+                row = f"| {metric_names[metric]} |"
+                for model_stats in summary['by_model'].values():
+                    score = model_stats['average_scores'][metric]
+                    row += f" {score} |"
+                f.write(row + "\n")
+            
+            # Tiempo de respuesta
+            f.write("\n### Tiempo de Respuesta Promedio\n\n")
+            f.write("| Modelo | Tiempo (s) |\n")
+            f.write("|---|---|\n")
+            for model, stats in summary['by_model'].items():
+                f.write(f"| {model} | {stats['avg_response_time']} |\n")
+            
+            # Detalles por modelo
+            for model, stats in summary['by_model'].items():
+                f.write(f"\n## 📌 Detalles: {model.upper()}\n\n")
+                
+                f.write("### Por Categoría\n\n")
+                f.write("| Categoría | Score |\n")
+                f.write("|---|---|\n")
+                for cat, score in stats['by_category'].items():
+                    f.write(f"| {cat} | {score} |\n")
+                
+                f.write("\n### Por Dificultad\n\n")
+                f.write("| Dificultad | Score |\n")
+                f.write("|---|---|\n")
+                for diff, score in stats['by_difficulty'].items():
+                    f.write(f"| {diff} | {score} |\n")
         
         print(f"📄 Resumen Markdown guardado en: {md_file}")
         print("=" * 70)

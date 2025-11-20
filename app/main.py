@@ -182,7 +182,8 @@ RESPUESTA:"""
                     "title": metadata.get('titulo', 'Sin título'),
                     "source": metadata.get('organismo', 'Fuente desconocida'),
                     "category": metadata.get('categoria', ''),
-                    "year": metadata.get('anio', 'N/A')
+                    "year": metadata.get('anio', 'N/A'),
+                    "file_path": metadata.get('ruta_archivo', '')
                 })
         
         return {

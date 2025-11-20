@@ -5,9 +5,14 @@ def get_or_create_collection(collection_name="documentos_ucaldas"):
     client = get_chroma_client()
 
     # Buscar si ya existe
-    for col in client.list_collections():
-        if col.name == collection_name:
-            return col
+    collection_names = [col.name for col in client.list_collections()]
+    if collection_name in collection_names:
+        # CRITICAL: Usar get_collection con embedding_function explícito
+        # para que ChromaDB use Gemini embeddings en las queries
+        return client.get_collection(
+            name=collection_name,
+            embedding_function=embedding_function
+        )
 
     # Crear la colección usando Gemini como función de embeddings
     return client.create_collection(
