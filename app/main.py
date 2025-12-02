@@ -3,12 +3,17 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import PlainTextResponse
 from config.settings import settings
 from rag.chroma_manager import add_document
+from utils.logger import get_logger
 import logging
 from pathlib import Path
+import time
 
 # Configurar logging
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
+
+# Logger anonimizado
+anon_logger = get_logger()
 
 app = FastAPI(
     title="ChatBot IA - Universidad de Caldas",
@@ -24,6 +29,19 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+# Evento de inicio: registrar startup
+@app.on_event("startup")
+async def startup_event():
+    """Registra el inicio del sistema"""
+    anon_logger.log_system_event(
+        event="system_startup",
+        details={
+            "mode": settings.MODE,
+            "version": "0.1.0"
+        }
+    )
+    logger.info("Sistema iniciado correctamente")
 
 @app.get("/")
 def read_root():
@@ -102,6 +120,8 @@ def chat(query: dict):
         "mode": "extended"  // opcional, modo de respuesta: "brief" o "extended"
     }
     """
+    start_time = time.time()
+    
     try:
         question = query.get("question", "")
         top_k = query.get("top_k", 3)
@@ -186,6 +206,24 @@ RESPUESTA:"""
                     "file_path": metadata.get('ruta_archivo', '')
                 })
         
+        # Calcular tiempo de respuesta
+        response_time = time.time() - start_time
+        
+        # Registrar interacción de forma anonimizada
+        anon_logger.log_interaction(
+            question=question,
+            answer=answer,
+            model=model_id,
+            response_mode=response_mode,
+            sources_count=len(cited_docs),
+            response_time=response_time,
+            session_id=query.get("session_id", None),
+            metadata={
+                "top_k": top_k,
+                "context_length": len(context)
+            }
+        )
+        
         return {
             "status": "ok",
             "answer": answer,
@@ -197,6 +235,15 @@ RESPUESTA:"""
         }
         
     except Exception as e:
+        # Registrar error de forma anonimizada
+        anon_logger.log_error(
+            error_type="ChatEndpointError",
+            error_message=str(e),
+            context={
+                "model": query.get("model", "unknown"),
+                "response_mode": query.get("mode", "unknown")
+            }
+        )
         logger.error(f"Error en /chat: {e}", exc_info=True)
         raise HTTPException(status_code=500, detail=str(e))
 

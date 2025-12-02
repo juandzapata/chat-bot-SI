@@ -20,11 +20,44 @@
 - ✅ `GET /` - Health check y conexión ChromaDB
 - ✅ `POST /ingest_test` - Prueba básica de ingesta
 - ✅ `POST /ingest_all` - Ingesta completa del corpus
-- ✅ `POST /chat` - Endpoint RAG con contexto recuperado
+- ✅ `POST /chat` - Endpoint RAG con contexto recuperado (multi-modelo)
 - ✅ `GET /collection_stats` - Estadísticas de la colección
+- ✅ `GET /models` - Modelos disponibles
+- ✅ `GET /policy` - Documento de políticas
+- ✅ `GET /sources` - Fuentes disponibles
+
+### Sistema de Evaluación
+- ✅ 60 preguntas gold en 6 categorías
+- ✅ 6 métricas automatizadas (0-100):
+  - Exactitud (keywords)
+  - Cobertura (documentos recuperados)
+  - Claridad (estructura)
+  - Citas (referencias)
+  - Alucinación (detección)
+  - Seguridad (disclaimers)
+- ✅ Evaluación comparativa multi-modelo (Gemini vs LLaMA3)
+- ✅ Reportes JSON y Markdown
+
+### Logging y Monitoreo
+- ✅ **Sistema de logs anonimizados**
+  - Anonimización automática de datos sensibles
+  - Logs en formato JSONL
+  - Separación por tipo (interacciones, errores, sistema)
+  - Script de análisis estadístico
+- ✅ Métricas de uso por modelo/modo
+- ✅ Tracking de tiempos de respuesta
+
+### Modelos y Modos
+- ✅ **Gemini 2.5 Flash** (principal)
+- ✅ **LLaMA 3.1 8B** via Groq (secundario)
+- ✅ Modos de respuesta: brief (150 palabras) y extended (400-600 palabras)
 
 ### Documentación
 - ✅ `INGEST_INSTRUCTIONS.md` - Guía completa de uso
+- ✅ `EVALUATION_SYSTEM.md` - Sistema de evaluación
+- ✅ `LOGGING_SYSTEM.md` - Sistema de logs anonimizados ⭐ NUEVO
+- ✅ `POLICY_ENDPOINT.md` - Endpoint de políticas
+- ✅ `SOURCES_ENDPOINT.md` - Endpoint de fuentes
 - ✅ `STATUS.md` - Este documento
 - ✅ Comentarios y docstrings en código
 
@@ -32,6 +65,7 @@
 
 ### Funcionalidades Adicionales
 - [ ] OCR para imágenes (PNG, JPG) con pytesseract
+- [ ] Token/cost monitoring - Tracking de costos de API
 - [ ] Endpoint de ingesta incremental
 - [ ] Filtrado avanzado por metadata en búsquedas
 - [ ] Streaming de respuestas del chat
@@ -58,10 +92,12 @@
 ## 📊 Métricas Actuales
 
 ### Corpus
-- **Total documentos**: 3
-  - Colombia: 1 (PDF)
-  - Internacional: 1 (PDF)
-  - Universidad: 1 (PNG - pendiente OCR)
+- **Total documentos**: 39 documentos PDF + 1 PNG (pendiente OCR)
+  - Colombia: 2 PDFs
+  - Internacional: 32 PDFs
+  - Universidad: 5 PDFs + 1 PNG
+- **Total chunks**: 4,814 embeddings generados con Gemini
+- **Colección ChromaDB**: `documentos_ucaldas` con embeddings correctos
 
 ### Arquitectura
 - **Chunking**: 1000 caracteres con overlap de 200
