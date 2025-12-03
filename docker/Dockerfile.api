@@ -24,12 +24,16 @@ RUN pip install --upgrade pip && \
 # Copiar todo el proyecto (app, data, etc.)
 COPY app /app
 COPY data /data
+COPY start.sh /app/start.sh
 
 # Crear directorio para logs y vector store
 RUN mkdir -p /data/vector_store /app/logs
 
+# Dar permisos de ejecución al script
+RUN chmod +x /app/start.sh
+
 # Exponer el puerto del backend
 EXPOSE 9000
 
-# Railway usará el startCommand de railway.json
-# No definimos CMD aquí para que railway.json tenga prioridad
+# Usar script wrapper para manejar variable PORT
+CMD ["/app/start.sh"]
