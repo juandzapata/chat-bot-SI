@@ -28,9 +28,8 @@ COPY data /data
 # Crear directorio para logs y vector store
 RUN mkdir -p /data/vector_store /app/logs
 
-# Exponer el puerto del backend (Railway usa variable $PORT)
+# Exponer el puerto del backend
 EXPOSE 9000
 
-# Comando para iniciar FastAPI (sin --reload en producción)
-# Railway inyecta $PORT automáticamente
-CMD uvicorn main:app --host 0.0.0.0 --port ${PORT:-9000}
+# Railway usará el startCommand de railway.json
+# No definimos CMD aquí para que railway.json tenga prioridad
