@@ -232,3 +232,43 @@ docker-compose restart api    # Aplicar cambios de código
 3. Expandir corpus a 50+ documentos
 4. Fine-tuning de LLaMA3 con conversaciones gold
 5. API de feedback para mejorar respuestas
+
+---
+
+## 🌐 Deployment en Producción
+
+### **Plataforma**: Railway
+- **Modo**: ChromaDB Embebido (sin servicio separado)
+- **Costo**: Free tier (500 hrs/mes)
+- **Persistencia**: Volumen en `/data/vector_store` (4,814 embeddings)
+
+### **Variables de Entorno Críticas**
+```bash
+GOOGLE_API_KEY=<tu_key>           # API de Gemini
+USE_EMBEDDED_CHROMA=true          # Modo embebido
+CHROMA_PERSIST_DIR=/data/vector_store
+MODE=production
+```
+
+### **Desarrollo vs Producción**
+| Aspecto | Desarrollo | Producción |
+|---------|-----------|------------|
+| ChromaDB | HTTP (docker-compose) | Embebido (Railway) |
+| Servicios | 2 contenedores | 1 contenedor |
+| Reload | --reload activado | Desactivado |
+| Persistencia | Local volumes | Railway volumes |
+
+### **URL de Deployment**
+Después de deployment en Railway: `https://tu-app.up.railway.app`
+
+### **Comandos de Deployment**
+```bash
+# 1. Push a GitHub
+git push origin main
+
+# 2. Railway detecta cambios y despliega automáticamente
+# 3. Configurar variables de entorno en dashboard
+# 4. Configurar volumen persistente en /data/vector_store
+```
+
+Ver `DEPLOYMENT.md` para guía completa paso a paso.

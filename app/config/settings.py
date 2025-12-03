@@ -12,6 +12,10 @@ class Settings:
         # Configuración de ChromaDB
         self.CHROMA_HOST = os.getenv("CHROMA_HOST", "chroma_db")
         self.CHROMA_PORT = int(os.getenv("CHROMA_PORT", 8000))
+        self.CHROMA_PERSIST_DIR = os.getenv("CHROMA_PERSIST_DIR", "/data/vector_store")
+        
+        # Usar ChromaDB embebido en producción, HTTP en desarrollo
+        self.USE_EMBEDDED_CHROMA = os.getenv("USE_EMBEDDED_CHROMA", "false").lower() == "true"
 
         # Configuración del backend
         self.APP_HOST = os.getenv("APP_HOST", "0.0.0.0")
